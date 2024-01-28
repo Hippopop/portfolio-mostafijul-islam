@@ -1,0 +1,17 @@
+  image_picker //Needs configuration.
+  easy_localization //Needs configuration.
+
+  dev:flutter_native_splash //Needs configuration.
+  dev:flutter_launcher_icons //Needs configuration.
+
+  url_launcher
+  flutter_svg
+  get
+
+
+
+/* Riverpod Flutter.
+flutter_riverpod
+dev:custom_lint
+dev:riverpod_lint
+*/
