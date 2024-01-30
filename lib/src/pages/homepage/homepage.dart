@@ -14,9 +14,27 @@ class Homepage extends StatelessWidget {
           return const Column(
             children: [
               TopNavigationBarSection(),
+              Expanded(
+                child: BodySection(),
+              ),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class BodySection extends StatelessWidget {
+  const BodySection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SingleChildScrollView(
+      child: Column(
+        children: [],
       ),
     );
   }
