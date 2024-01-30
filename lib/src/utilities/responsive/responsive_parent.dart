@@ -22,47 +22,42 @@
 
 import 'package:flutter/material.dart';
 
-enum ResponsiveState {
+enum ResponsiveState implements Comparable<ResponsiveState> {
   ts(
     min: 0,
     max: 360,
     bodyMargin: 8,
     layoutColumn: 4,
-    contentBody: null,
+    bodyWidth: null,
   ),
   xs(
     min: 361,
     max: 600,
     bodyMargin: 16,
     layoutColumn: 4,
-    contentBody: null,
+    bodyWidth: null,
   ),
   sm(
     min: 601,
     max: 900,
     bodyMargin: 32,
     layoutColumn: 8,
-    contentBody: null,
+    bodyWidth: null,
   ),
   md(
     min: 901,
     max: 1250,
     bodyMargin: null,
     layoutColumn: 12,
-    contentBody: 840,
+    bodyWidth: 840,
   ),
-  lg(
-      min: 1250,
-      max: 1500,
-      bodyMargin: 200,
-      layoutColumn: 12,
-      contentBody: null),
+  lg(min: 1250, max: 1500, bodyMargin: 200, layoutColumn: 12, bodyWidth: null),
   xl(
     min: 1500,
     max: double.infinity,
     bodyMargin: null,
     layoutColumn: 8,
-    contentBody: 1080,
+    bodyWidth: 1080,
   );
 
   const ResponsiveState({
@@ -70,18 +65,56 @@ enum ResponsiveState {
     required this.max,
     required this.bodyMargin,
     required this.layoutColumn,
-    required this.contentBody,
+    required this.bodyWidth,
   });
 
   final double max;
   final double min;
 
   /* Material 2 Specifications [https://arc.net/l/quote/qtcvlqts] */
-  final int? bodyMargin;
+  final double? bodyMargin;
   final int? layoutColumn;
-  final int? contentBody;
+  final double? bodyWidth;
 
   bool inRange(double screenWidth) => min <= screenWidth && screenWidth <= max;
+
+  @override
+  compareTo(ResponsiveState state) => min.toInt() - state.min.toInt();
+
+  bool operator <=(ResponsiveState other) => compareTo(other) <= 0;
+
+  bool operator >=(ResponsiveState other) => compareTo(other) >= 0;
+
+  bool operator <(ResponsiveState other) => compareTo(other) < 0;
+
+  bool operator >(ResponsiveState other) => compareTo(other) > 0;
+}
+
+extension ParentResponsiveStateGetter on BuildContext {
+  ValueNotifier<ResponsiveState?> get responsiveStateListener {
+    final state = findAncestorStateOfType<_ResponsiveParentWrapperState>();
+    if (state == null) {
+      throw UnimplementedError(
+        "No parent [ResponsiveParentWrapper] "
+        "widget found in the current widget tree!",
+      );
+    }
+    return state.currentState;
+  }
+
+  ResponsiveState get responsiveState {
+    final state = findAncestorStateOfType<_ResponsiveParentWrapperState>();
+    final value = state?.currentState.value;
+    if (state == null || value == null) {
+      throw UnimplementedError(
+        "No parent [ResponsiveParentWrapper] "
+        "widget found in the current widget tree!"
+        "Or the widget hasn't been built yet."
+        "Please make sure the system is ready before using value!",
+      );
+    }
+    return value;
+  }
 }
 
 typedef ResponsiveWidgetCallback = Widget Function(
@@ -105,7 +138,7 @@ class ResponsiveParentWrapper extends StatefulWidget {
 
 class _ResponsiveParentWrapperState extends State<ResponsiveParentWrapper> {
   late Widget child;
-  ResponsiveState? currentState;
+  ValueNotifier<ResponsiveState?> currentState = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +147,8 @@ class _ResponsiveParentWrapperState extends State<ResponsiveParentWrapper> {
         final state = ResponsiveState.values.firstWhere(
           (element) => element.inRange(constraints.maxWidth),
         );
-        if (currentState != state) {
-          currentState = state;
+        if (currentState.value != state) {
+          currentState.value = state;
           child = widget.builder(context, state);
         }
         return widget.useMaterialTwoSpecifications
@@ -145,10 +178,10 @@ class MaterialTwoSpecificationWrapper extends StatelessWidget {
         child: widget,
       );
     }
-    if (state.contentBody != null) {
+    if (state.bodyWidth != null) {
       widget = Center(
         child: SizedBox(
-          width: state.contentBody!.toDouble(),
+          width: state.bodyWidth!.toDouble(),
           child: widget,
         ),
       );

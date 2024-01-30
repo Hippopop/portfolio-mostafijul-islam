@@ -13,6 +13,7 @@ const _extraTextColor = Color(0xff18191C);
 const _secondaryAccent = Color(0xffE4E5E8);
 const _backgroundColor = Color(0xffEDEFF5);
 
+const lightThemeKey = "#BASE_LIGHT_THEME";
 final lightTheme = ThemeData(
   useMaterial3: false,
   brightness: Brightness.dark,

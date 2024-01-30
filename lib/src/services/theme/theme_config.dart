@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'app_theme.dart';
+
 final class ThemeConfiguration {
   ThemeConfiguration._();
 
-  static get initialTheme => ThemeData();
-  static const Map<String, ThemeData> availableThemeList = {};
+  static ThemeData get initialTheme => availableThemeList[lightThemeKey]!;
+  static Map<String, ThemeData> availableThemeList = {
+    lightThemeKey: lightTheme,
+  };
 }

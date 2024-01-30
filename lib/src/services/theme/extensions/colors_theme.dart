@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 extension ColorExtension on BuildContext {
-  ColorTheme? get color => Theme.of(this).extension<ColorTheme>();
+  ColorTheme get color =>
+      Theme.of(this).extension<ColorTheme>() ?? ColorTheme();
 }
 
 class ColorTheme extends ThemeExtension<ColorTheme> {
