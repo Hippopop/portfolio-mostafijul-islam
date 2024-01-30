@@ -16,4 +16,4 @@ jobs:
           # workingDir: ./
           targetBranch: release
           webRenderer: canvaskit
-          baseHref: /portfolio-mostafij/
+          baseHref: /portfolio-mostafijul-islam/
