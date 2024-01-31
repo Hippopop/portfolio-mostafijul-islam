@@ -7,16 +7,17 @@ import 'package:portfolio_mostafij/src/root/root.dart';
 import 'src/root/views/error_screen.dart';
 
 void main() {
-  runZonedGuarded(
-    () async => runApp(const ProviderScope(child: AppRoot())),
-    (error, stacktrace) {
-      //*** Just a safety layer!
-      log("#RootError", error: error, stackTrace: stacktrace);
-      return runApp(
-        ProviderScope(
-          child: RootErrorBody(error: error, stackTrace: stacktrace),
-        ),
-      );
-    },
-  );
+  runApp(const ProviderScope(child: AppRoot()));
+  // runZonedGuarded(
+  //   () async => runApp(const ProviderScope(child: AppRoot())),
+  //   (error, stacktrace) {
+  //     //*** Just a safety layer!
+  //     log("#RootError", error: error, stackTrace: stacktrace);
+  //     return runApp(
+  //       ProviderScope(
+  //         child: RootErrorBody(error: error, stackTrace: stacktrace),
+  //       ),
+  //     );
+  //   },
+  // );
 }
