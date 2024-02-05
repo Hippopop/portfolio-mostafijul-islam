@@ -40,6 +40,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-assets:
-  - assets/animations/rive
+  assets:
+    - assets/animations/rive/

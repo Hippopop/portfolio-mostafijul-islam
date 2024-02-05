@@ -95,32 +95,6 @@ class HeroSection extends StatelessWidget {
                               const TextSpan(
                                 text: ".",
                               ),
-                              /* 
-                                TextSpan(
-                                text: "*Flutter",
-                                style: context.text.headlineMedium?.merge(
-                                  GoogleFonts.sofia(
-                                    fontWeight: FontWeight.bold,
-                                    decorationColor: Colors.blue,
-                                    color: context.color.opposite,
-                                    // decoration: TextDecoration.underline,
-                                    decorationStyle: TextDecorationStyle.wavy,
-                                  ),
-                                ),
-                              ),
-                              TextSpan(
-                                text: " Developer.",
-                                style: context.text.headlineMedium?.merge(
-                                  GoogleFonts.sofia(
-                                    fontWeight: FontWeight.bold,
-                                    decorationColor: Colors.blue,
-                                    color: context.color.opposite,
-                                    // decoration: TextDecoration.underline,
-                                    decorationStyle: TextDecorationStyle.wavy,
-                                  ),
-                                ),
-                              ), 
-                              */
                             ],
                           ),
                         ),
@@ -143,11 +117,20 @@ class HeroSection extends StatelessWidget {
                 ),
                 4.width,
                 Expanded(
-                  child: ColoredBox(
-                    color: Colors.green,
-                    child: SizedBox.expand(
+                  child: SizedBox.expand(
+                    child: Center(
                       child: RiveAnimation.asset(
                         "assets/animations/rive/face.riv",
+                        onInit: (artBoard) {
+                          final controller =
+                              StateMachineController.fromArtboard(
+                            artBoard,
+                            "State Machine 1",
+                          );
+                          if (controller != null) {
+                            artBoard.addController(controller);
+                          }
+                        },
                       ),
                     ),
                   ),
