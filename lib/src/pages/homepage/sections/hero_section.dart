@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
@@ -25,15 +26,20 @@ class HeroSection extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxHeight: 340,
-                      maxWidth: 340,
-                      minHeight: 250,
-                      minWidth: 250,
-                    ),
-                    child: const FittedBox(
-                      child: HeroRiveFace(),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: 340,
+                        maxWidth: 340,
+                        minHeight: 250,
+                        minWidth: 250,
+                      ),
+                      child: FittedBox(
+                        child: const HeroRiveFace()
+                            .animate()
+                            .fadeIn(duration: 800.ms),
+                      ),
                     ),
                   ),
                   const HeroDetailsSection(),
@@ -44,11 +50,13 @@ class HeroSection extends StatelessWidget {
                   children: [
                     const HeroDetailsSection(),
                     4.width,
-                    const Expanded(
+                    Expanded(
                       child: Center(
                         child: FittedBox(
                           alignment: Alignment.center,
-                          child: HeroRiveFace(),
+                          child: const HeroRiveFace()
+                              .animate()
+                              .fadeIn(duration: 800.ms),
                         ),
                       ),
                     ),
@@ -101,7 +109,7 @@ class HeroDetailsSection extends StatelessWidget {
         minWidth: ResponsiveState.ts.min,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           72.height,
@@ -115,6 +123,7 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
               ),
               children: [
+                WidgetSpan(child: 60.height),
                 TextSpan(
                   text: "Mostafijul Islam",
                   style: context.text.headlineMedium?.merge(
@@ -168,17 +177,28 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )
+              .animate()
+              .fadeIn(duration: 800.ms)
+              // .then(delay: 200.ms) // baseline=800ms
+              .slide(),
           18.height,
-          Text(
-            "I build cross-platform apps using Flutter. But just like Flutter I specialize at building Mobile apps. Basically Android & iOS.",
-            softWrap: true,
-            maxLines: 100,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w300,
-              color: context.color.secondaryText,
-            ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Text(
+              "I build cross-platform apps using Flutter. But just like Flutter I specialize at building Mobile apps. Basically Android & iOS.",
+              softWrap: true,
+              maxLines: 100,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w300,
+                color: context.color.secondaryText,
+              ),
+            )
+                .animate()
+                .fadeIn(duration: 800.ms)
+                // .then(delay: 200.ms) // baseline=800ms
+                .slide(),
           ),
         ],
       ),
