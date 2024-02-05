@@ -42,13 +42,14 @@ class HeroSection extends StatelessWidget {
             _ => IntrinsicHeight(
                 child: Row(
                   children: [
-                    const Flexible(
-                      child: HeroDetailsSection(),
-                    ),
+                    const HeroDetailsSection(),
                     4.width,
                     const Expanded(
-                      child: SizedBox.expand(
-                        child: HeroRiveFace(),
+                      child: Center(
+                        child: FittedBox(
+                          alignment: Alignment.center,
+                          child: HeroRiveFace(),
+                        ),
                       ),
                     ),
                   ],
@@ -70,19 +71,18 @@ class HeroRiveFace extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.square(
       dimension: 500,
-      child: Center(
-        child: RiveAnimation.asset(
-          "assets/animations/rive/face.riv",
-          onInit: (artBoard) {
-            final controller = StateMachineController.fromArtboard(
-              artBoard,
-              "State Machine 1",
-            );
-            if (controller != null) {
-              artBoard.addController(controller);
-            }
-          },
-        ),
+      child: RiveAnimation.asset(
+        "assets/animations/rive/face.riv",
+        onInit: (artBoard) {
+          const baseStateName = "State Machine 1";
+          final controller = StateMachineController.fromArtboard(
+            artBoard,
+            baseStateName,
+          );
+          if (controller != null) {
+            artBoard.addController(controller);
+          }
+        },
       ),
     );
   }
