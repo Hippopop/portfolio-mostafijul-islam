@@ -8,7 +8,11 @@ import 'src/root/views/error_screen.dart';
 
 void main() {
   runZonedGuarded(
-    () async => runApp(const ProviderScope(child: AppRoot())),
+    () async => runApp(
+      const ProviderScope(
+        child: AppRoot(),
+      ),
+    ),
     //*** Just a safety layer!
     (error, stacktrace) {
       log("#RootError", error: error, stackTrace: stacktrace);
