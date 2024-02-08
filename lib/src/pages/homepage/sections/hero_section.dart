@@ -7,6 +7,8 @@ import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart'
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
 
+final _initialDuration = 800.ms;
+
 class HeroSection extends StatelessWidget {
   const HeroSection({
     super.key,
@@ -21,8 +23,8 @@ class HeroSection extends StatelessWidget {
           state: context.responsiveState,
           child: switch (state) {
             ResponsiveState.sm ||
-            ResponsiveState.ts ||
-            ResponsiveState.xs =>
+            ResponsiveState.xs ||
+            ResponsiveState.ts =>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -38,7 +40,7 @@ class HeroSection extends StatelessWidget {
                       child: FittedBox(
                         child: const HeroRiveFace()
                             .animate()
-                            .fadeIn(duration: 800.ms),
+                            .fadeIn(duration: _initialDuration),
                       ),
                     ),
                   ),
@@ -56,7 +58,7 @@ class HeroSection extends StatelessWidget {
                           alignment: Alignment.center,
                           child: const HeroRiveFace()
                               .animate()
-                              .fadeIn(duration: 800.ms),
+                              .fadeIn(duration: _initialDuration),
                         ),
                       ),
                     ),
@@ -112,7 +114,7 @@ class HeroDetailsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          72.height,
+          52.height,
           RichText(
             softWrap: true,
             text: TextSpan(
@@ -179,7 +181,7 @@ class HeroDetailsSection extends StatelessWidget {
             ),
           )
               .animate()
-              .fadeIn(duration: 800.ms)
+              .fadeIn(duration: _initialDuration)
               // .then(delay: 200.ms) // baseline=800ms
               .slide(),
           18.height,
@@ -196,7 +198,7 @@ class HeroDetailsSection extends StatelessWidget {
               ),
             )
                 .animate()
-                .fadeIn(duration: 800.ms)
+                .fadeIn(duration: _initialDuration)
                 // .then(delay: 200.ms) // baseline=800ms
                 .slide(),
           ),
