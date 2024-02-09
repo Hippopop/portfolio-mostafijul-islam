@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:local_hero/local_hero.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
+import 'package:portfolio_mostafij/src/constants/utils/date_utils.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/work_experience_model/work_experience_model.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/experience_controller.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/flag_state_notifier.dart';
@@ -115,85 +116,169 @@ class ExperienceSection extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: context.responsiveStateListener,
       builder: (context, state, child) {
+        print(state);
         return MaterialTwoSpecificationWrapper(
           state: context.responsiveState,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: vertical16,
-                child: Center(
-                  child: Text(
-                    "Work Experience",
-                    style: context.text.headlineMedium?.merge(
-                      GoogleFonts.sofia(
-                        color: context.color.opposite,
+          child: switch (state) {
+            ResponsiveState.xs ||
+            ResponsiveState.ts ||
+            ResponsiveState.sm =>
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: vertical8,
+                      child: Center(
+                        child: Text(
+                          "Work Experience",
+                          style: context.text.headlineMedium?.merge(
+                            GoogleFonts.sofia(
+                              color: context.color.opposite,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              IntrinsicHeight(
-                child: Row(
-                  children: [
-                    const RivePositionFlag(),
-                    24.width,
-                    Expanded(
-                      child: Consumer(builder: (context, ref, child) {
-                        final controller =
-                            ref.watch(workExperienceStateProvider);
-                        return Column(
-                          children: [
-                            ...controller.experienceList
-                                .map(
-                                  (workExperience) => Column(
-                                    children: [
-                                      WorkExperienceWidget(
-                                        experienceModel: workExperience,
-                                        selectedExpIndex: controller
-                                            .selectedWorkExperienceIndex,
-                                        onSelect: (data) {
-                                          ref
-                                              .read(workExperienceStateProvider
-                                                  .notifier)
-                                              .onExperienceSelect(data);
-                                        },
-                                        onHover: (state, data) {
-                                          ref
-                                              .read(workExperienceStateProvider
-                                                  .notifier)
-                                              .onExperienceSelect(data);
-                                          final provider = ref
-                                              .read(flagStateProvider.notifier);
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 200),
+                      child: RivePositionFlag(),
+                    ),
+                  ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      log(MediaQuery.of(context).size.width.toString());
+                      final controller = ref.watch(workExperienceStateProvider);
+                      return Column(
+                        children: [
+                          ...controller.experienceList
+                              .map(
+                                (workExperience) => Column(
+                                  children: [
+                                    WorkExperienceWidget(
+                                      experienceModel: workExperience,
+                                      selectedExpIndex: controller
+                                          .selectedWorkExperienceIndex,
+                                      onSelect: (data) {
+                                        ref
+                                            .read(workExperienceStateProvider
+                                                .notifier)
+                                            .onExperienceSelect(data);
+                                      },
+                                      onHover: (state, data) {
+                                        ref
+                                            .read(workExperienceStateProvider
+                                                .notifier)
+                                            .onExperienceSelect(data);
+                                        final provider = ref
+                                            .read(flagStateProvider.notifier);
 
-                                          if (state) {
-                                            provider
-                                                .changeFlagIndex(data.index);
-                                            provider.changeVerticalWind(
-                                                data.verticalIntensity);
-                                            provider.changeHorizontalWind(
-                                                data.horizontalIntensity);
-                                          } /* else {
+                                        if (state) {
+                                          provider.changeFlagIndex(data.index);
+                                          provider.changeVerticalWind(
+                                              data.verticalIntensity);
+                                          provider.changeHorizontalWind(
+                                              data.horizontalIntensity);
+                                        } /* else {
                                             provider.changeFlagIndex(0);
                                             provider.changeVerticalWind(0);
                                             provider.changeHorizontalWind(0);
                                           } */
-                                        },
-                                      ),
-                                      8.height,
-                                    ],
-                                  ),
-                                )
-                                .toList(),
-                          ],
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+                                      },
+                                    ),
+                                    8.height,
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            _ => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: vertical16,
+                    child: Center(
+                      child: Text(
+                        "Work Experience",
+                        style: context.text.headlineMedium?.merge(
+                          GoogleFonts.sofia(
+                            color: context.color.opposite,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        const RivePositionFlag(),
+                        24.width,
+                        Expanded(
+                          child: Consumer(builder: (context, ref, child) {
+                            final controller =
+                                ref.watch(workExperienceStateProvider);
+                            return Column(
+                              children: [
+                                ...controller.experienceList
+                                    .map(
+                                      (workExperience) => Column(
+                                        children: [
+                                          WorkExperienceWidget(
+                                            experienceModel: workExperience,
+                                            selectedExpIndex: controller
+                                                .selectedWorkExperienceIndex,
+                                            onSelect: (data) {
+                                              ref
+                                                  .read(
+                                                      workExperienceStateProvider
+                                                          .notifier)
+                                                  .onExperienceSelect(data);
+                                            },
+                                            onHover: (state, data) {
+                                              ref
+                                                  .read(
+                                                      workExperienceStateProvider
+                                                          .notifier)
+                                                  .onExperienceSelect(data);
+                                              final provider = ref.read(
+                                                  flagStateProvider.notifier);
+
+                                              if (state) {
+                                                provider.changeFlagIndex(
+                                                    data.index);
+                                                provider.changeVerticalWind(
+                                                    data.verticalIntensity);
+                                                provider.changeHorizontalWind(
+                                                    data.horizontalIntensity);
+                                              } /* else {
+                                            provider.changeFlagIndex(0);
+                                            provider.changeVerticalWind(0);
+                                            provider.changeHorizontalWind(0);
+                                          } */
+                                            },
+                                          ),
+                                          8.height,
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
+                              ],
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+          },
         );
       },
     );
@@ -285,7 +370,7 @@ class ExpandedExperienceTile extends StatelessWidget {
         Row(
           children: [
             Text(
-              "${experienceModel.company.startDate.year} - ${experienceModel.company.endDate?.year}",
+              "${monthY.format(experienceModel.company.startDate)} - ${experienceModel.company.endDate != null ? monthY.format(experienceModel.company.endDate!) : "Now"}",
             ),
             4.width,
             Text(
@@ -375,7 +460,7 @@ class CollapsedExperienceTile extends StatelessWidget {
               height: 24,
               child: Center(
                 child: Text(
-                  "${experienceModel.company.startDate.year} - ${experienceModel.company.endDate?.year}",
+                  "${monthY.format(experienceModel.company.startDate)} - ${experienceModel.company.endDate != null ? monthY.format(experienceModel.company.endDate!) : "Now"}",
                 ),
               ),
             ),
