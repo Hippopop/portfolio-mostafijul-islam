@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/company_details/company_details.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/work_experience_model/work_experience_model.dart';
@@ -8,8 +7,8 @@ final _workExperienceList = [
   WorkExperienceModel(
     index: 1,
     colorCode: "#7D2323",
-    verticalIntensity: 10,
-    horizontalIntensity: 20,
+    verticalIntensity: 20,
+    horizontalIntensity: 50,
     company: CompanyDetails(
       name: "Lomeyo",
       logo: "",
@@ -21,8 +20,8 @@ final _workExperienceList = [
   WorkExperienceModel(
     index: 2,
     colorCode: "#0090DE",
-    verticalIntensity: 80,
-    horizontalIntensity: 20,
+    verticalIntensity: 40,
+    horizontalIntensity: 60,
     company: CompanyDetails(
       name: "Marhaba Ltd.",
       logo: "",
@@ -54,4 +53,8 @@ final workExperienceStateProvider =
 class WorkExperienceStateNotifier extends Notifier<WorkExperienceState> {
   @override
   build() => WorkExperienceState(experienceList: _workExperienceList);
+
+  onExperienceSelect(WorkExperienceModel experienceModel) {
+    state = state.copyWith(selectedWorkExperience: experienceModel);
+  }
 }

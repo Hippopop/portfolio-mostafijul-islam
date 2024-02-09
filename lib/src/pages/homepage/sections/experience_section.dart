@@ -149,10 +149,8 @@ class ExperienceSection extends StatelessWidget {
                                     children: [
                                       WorkExperienceWidget(
                                         experienceModel: workExperience,
-                                        isSelected: controller
-                                                .selectedWorkExperience
-                                                ?.index ==
-                                            workExperience.index,
+                                        selectedExpIndex: controller
+                                            .selectedWorkExperience?.index,
                                         onSelect: (data) {},
                                         onHover: (state, data) {
                                           final provider = ref
@@ -197,10 +195,10 @@ class WorkExperienceWidget extends StatelessWidget {
     super.key,
     required this.onHover,
     required this.onSelect,
-    required this.isSelected,
+    required this.selectedExpIndex,
     required this.experienceModel,
   });
-  final bool isSelected;
+  final int? selectedExpIndex;
   final WorkExperienceModel experienceModel;
   final void Function(WorkExperienceModel data) onSelect;
   final void Function(bool state, WorkExperienceModel data) onHover;

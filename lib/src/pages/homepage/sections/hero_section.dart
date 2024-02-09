@@ -44,13 +44,19 @@ class HeroSection extends StatelessWidget {
                       ),
                     ),
                   ),
+                  12.height,
                   const HeroDetailsSection(),
                 ],
               ),
             _ => IntrinsicHeight(
                 child: Row(
                   children: [
-                    const HeroDetailsSection(),
+                    Column(
+                      children: [
+                        52.height,
+                        const HeroDetailsSection(),
+                      ],
+                    ),
                     4.width,
                     Expanded(
                       child: Center(
@@ -114,7 +120,6 @@ class HeroDetailsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          52.height,
           RichText(
             softWrap: true,
             text: TextSpan(
@@ -150,27 +155,32 @@ class HeroDetailsSection extends StatelessWidget {
                   ),
                 ),
                 WidgetSpan(
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: [
-                      ColorizeAnimatedText(
-                        "Flutter Developer",
-                        speed: Durations.extralong4,
-                        textStyle: context.text.headlineMedium!.merge(
-                          GoogleFonts.sofia(
-                            fontWeight: FontWeight.bold,
-                            decorationColor: Colors.blue,
-                            color: context.color.opposite,
-                            decorationStyle: TextDecorationStyle.wavy,
-                          ),
-                        ),
-                        colors: [
-                          Colors.blue,
-                          Colors.grey,
-                          Colors.blue,
-                          Colors.grey,
-                        ],
+                  child: Text(
+                    "Flutter Developer",
+                    style: context.text.headlineMedium!.merge(
+                      GoogleFonts.sofia(
+                        fontWeight: FontWeight.bold,
+                        color: context.color.opposite,
                       ),
+                    ),
+                  )
+                      .animate(onPlay: (controller) => controller.repeat())
+                      .shimmer(
+                    curve: Curves.ease,
+                    duration: 5.seconds,
+                    colors: [
+                      Colors.blue,
+                      Colors.blue.shade300,
+                      Colors.grey.shade400,
+                      Colors.grey,
+                      Colors.grey.shade300,
+                      Colors.blue,
+                      Colors.blue.shade300,
+                      Colors.grey.shade400,
+                      Colors.grey,
+                      Colors.grey.shade300,
+                      Colors.blue.shade300,
+                      Colors.blue,
                     ],
                   ),
                 ),
