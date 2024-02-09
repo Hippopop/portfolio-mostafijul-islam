@@ -11,6 +11,7 @@ _$CompanyDetailsImpl _$$CompanyDetailsImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       logo: json['logo'] as String,
       link: json['link'] as String,
+      desc: json['desc'] as String,
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: json['endDate'] == null
           ? null
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$CompanyDetailsImplToJson(
       'name': instance.name,
       'logo': instance.logo,
       'link': instance.link,
+      'desc': instance.desc,
       'startDate': instance.startDate.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
     };

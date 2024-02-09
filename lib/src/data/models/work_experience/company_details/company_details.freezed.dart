@@ -23,6 +23,7 @@ mixin _$CompanyDetails {
   String get name => throw _privateConstructorUsedError;
   String get logo => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
+  String get desc => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $CompanyDetailsCopyWith<$Res> {
       {String name,
       String logo,
       String link,
+      String desc,
       DateTime startDate,
       DateTime? endDate});
 }
@@ -62,6 +64,7 @@ class _$CompanyDetailsCopyWithImpl<$Res, $Val extends CompanyDetails>
     Object? name = null,
     Object? logo = null,
     Object? link = null,
+    Object? desc = null,
     Object? startDate = null,
     Object? endDate = freezed,
   }) {
@@ -77,6 +80,10 @@ class _$CompanyDetailsCopyWithImpl<$Res, $Val extends CompanyDetails>
       link: null == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: null == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
               as String,
       startDate: null == startDate
           ? _value.startDate
@@ -102,6 +109,7 @@ abstract class _$$CompanyDetailsImplCopyWith<$Res>
       {String name,
       String logo,
       String link,
+      String desc,
       DateTime startDate,
       DateTime? endDate});
 }
@@ -120,6 +128,7 @@ class __$$CompanyDetailsImplCopyWithImpl<$Res>
     Object? name = null,
     Object? logo = null,
     Object? link = null,
+    Object? desc = null,
     Object? startDate = null,
     Object? endDate = freezed,
   }) {
@@ -135,6 +144,10 @@ class __$$CompanyDetailsImplCopyWithImpl<$Res>
       link: null == link
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: null == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
               as String,
       startDate: null == startDate
           ? _value.startDate
@@ -157,6 +170,7 @@ class _$CompanyDetailsImpl
       {required this.name,
       required this.logo,
       required this.link,
+      required this.desc,
       required this.startDate,
       this.endDate});
 
@@ -170,13 +184,15 @@ class _$CompanyDetailsImpl
   @override
   final String link;
   @override
+  final String desc;
+  @override
   final DateTime startDate;
   @override
   final DateTime? endDate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CompanyDetails(name: $name, logo: $logo, link: $link, startDate: $startDate, endDate: $endDate)';
+    return 'CompanyDetails(name: $name, logo: $logo, link: $link, desc: $desc, startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -187,6 +203,7 @@ class _$CompanyDetailsImpl
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('logo', logo))
       ..add(DiagnosticsProperty('link', link))
+      ..add(DiagnosticsProperty('desc', desc))
       ..add(DiagnosticsProperty('startDate', startDate))
       ..add(DiagnosticsProperty('endDate', endDate));
   }
@@ -199,6 +216,7 @@ class _$CompanyDetailsImpl
             (identical(other.name, name) || other.name == name) &&
             (identical(other.logo, logo) || other.logo == logo) &&
             (identical(other.link, link) || other.link == link) &&
+            (identical(other.desc, desc) || other.desc == desc) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate));
@@ -207,7 +225,7 @@ class _$CompanyDetailsImpl
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, logo, link, startDate, endDate);
+      Object.hash(runtimeType, name, logo, link, desc, startDate, endDate);
 
   @JsonKey(ignore: true)
   @override
@@ -229,6 +247,7 @@ abstract class _CompanyDetails implements CompanyDetails {
       {required final String name,
       required final String logo,
       required final String link,
+      required final String desc,
       required final DateTime startDate,
       final DateTime? endDate}) = _$CompanyDetailsImpl;
 
@@ -241,6 +260,8 @@ abstract class _CompanyDetails implements CompanyDetails {
   String get logo;
   @override
   String get link;
+  @override
+  String get desc;
   @override
   DateTime get startDate;
   @override

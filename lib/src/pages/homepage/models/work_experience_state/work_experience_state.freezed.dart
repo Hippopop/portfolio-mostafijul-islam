@@ -20,8 +20,7 @@ WorkExperienceState _$WorkExperienceStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WorkExperienceState {
-  WorkExperienceModel? get selectedWorkExperience =>
-      throw _privateConstructorUsedError;
+  int get selectedWorkExperienceIndex => throw _privateConstructorUsedError;
   List<WorkExperienceModel> get experienceList =>
       throw _privateConstructorUsedError;
 
@@ -38,10 +37,8 @@ abstract class $WorkExperienceStateCopyWith<$Res> {
       _$WorkExperienceStateCopyWithImpl<$Res, WorkExperienceState>;
   @useResult
   $Res call(
-      {WorkExperienceModel? selectedWorkExperience,
+      {int selectedWorkExperienceIndex,
       List<WorkExperienceModel> experienceList});
-
-  $WorkExperienceModelCopyWith<$Res>? get selectedWorkExperience;
 }
 
 /// @nodoc
@@ -57,32 +54,19 @@ class _$WorkExperienceStateCopyWithImpl<$Res, $Val extends WorkExperienceState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedWorkExperience = freezed,
+    Object? selectedWorkExperienceIndex = null,
     Object? experienceList = null,
   }) {
     return _then(_value.copyWith(
-      selectedWorkExperience: freezed == selectedWorkExperience
-          ? _value.selectedWorkExperience
-          : selectedWorkExperience // ignore: cast_nullable_to_non_nullable
-              as WorkExperienceModel?,
+      selectedWorkExperienceIndex: null == selectedWorkExperienceIndex
+          ? _value.selectedWorkExperienceIndex
+          : selectedWorkExperienceIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       experienceList: null == experienceList
           ? _value.experienceList
           : experienceList // ignore: cast_nullable_to_non_nullable
               as List<WorkExperienceModel>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $WorkExperienceModelCopyWith<$Res>? get selectedWorkExperience {
-    if (_value.selectedWorkExperience == null) {
-      return null;
-    }
-
-    return $WorkExperienceModelCopyWith<$Res>(_value.selectedWorkExperience!,
-        (value) {
-      return _then(_value.copyWith(selectedWorkExperience: value) as $Val);
-    });
   }
 }
 
@@ -95,11 +79,8 @@ abstract class _$$WorkExperienceStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {WorkExperienceModel? selectedWorkExperience,
+      {int selectedWorkExperienceIndex,
       List<WorkExperienceModel> experienceList});
-
-  @override
-  $WorkExperienceModelCopyWith<$Res>? get selectedWorkExperience;
 }
 
 /// @nodoc
@@ -113,14 +94,14 @@ class __$$WorkExperienceStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedWorkExperience = freezed,
+    Object? selectedWorkExperienceIndex = null,
     Object? experienceList = null,
   }) {
     return _then(_$WorkExperienceStateImpl(
-      selectedWorkExperience: freezed == selectedWorkExperience
-          ? _value.selectedWorkExperience
-          : selectedWorkExperience // ignore: cast_nullable_to_non_nullable
-              as WorkExperienceModel?,
+      selectedWorkExperienceIndex: null == selectedWorkExperienceIndex
+          ? _value.selectedWorkExperienceIndex
+          : selectedWorkExperienceIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       experienceList: null == experienceList
           ? _value._experienceList
           : experienceList // ignore: cast_nullable_to_non_nullable
@@ -135,7 +116,7 @@ class _$WorkExperienceStateImpl
     with DiagnosticableTreeMixin
     implements _WorkExperienceState {
   const _$WorkExperienceStateImpl(
-      {this.selectedWorkExperience,
+      {required this.selectedWorkExperienceIndex,
       required final List<WorkExperienceModel> experienceList})
       : _experienceList = experienceList;
 
@@ -143,7 +124,7 @@ class _$WorkExperienceStateImpl
       _$$WorkExperienceStateImplFromJson(json);
 
   @override
-  final WorkExperienceModel? selectedWorkExperience;
+  final int selectedWorkExperienceIndex;
   final List<WorkExperienceModel> _experienceList;
   @override
   List<WorkExperienceModel> get experienceList {
@@ -154,7 +135,7 @@ class _$WorkExperienceStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'WorkExperienceState(selectedWorkExperience: $selectedWorkExperience, experienceList: $experienceList)';
+    return 'WorkExperienceState(selectedWorkExperienceIndex: $selectedWorkExperienceIndex, experienceList: $experienceList)';
   }
 
   @override
@@ -162,8 +143,8 @@ class _$WorkExperienceStateImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'WorkExperienceState'))
-      ..add(
-          DiagnosticsProperty('selectedWorkExperience', selectedWorkExperience))
+      ..add(DiagnosticsProperty(
+          'selectedWorkExperienceIndex', selectedWorkExperienceIndex))
       ..add(DiagnosticsProperty('experienceList', experienceList));
   }
 
@@ -172,15 +153,17 @@ class _$WorkExperienceStateImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WorkExperienceStateImpl &&
-            (identical(other.selectedWorkExperience, selectedWorkExperience) ||
-                other.selectedWorkExperience == selectedWorkExperience) &&
+            (identical(other.selectedWorkExperienceIndex,
+                    selectedWorkExperienceIndex) ||
+                other.selectedWorkExperienceIndex ==
+                    selectedWorkExperienceIndex) &&
             const DeepCollectionEquality()
                 .equals(other._experienceList, _experienceList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, selectedWorkExperience,
+  int get hashCode => Object.hash(runtimeType, selectedWorkExperienceIndex,
       const DeepCollectionEquality().hash(_experienceList));
 
   @JsonKey(ignore: true)
@@ -200,7 +183,7 @@ class _$WorkExperienceStateImpl
 
 abstract class _WorkExperienceState implements WorkExperienceState {
   const factory _WorkExperienceState(
-          {final WorkExperienceModel? selectedWorkExperience,
+          {required final int selectedWorkExperienceIndex,
           required final List<WorkExperienceModel> experienceList}) =
       _$WorkExperienceStateImpl;
 
@@ -208,7 +191,7 @@ abstract class _WorkExperienceState implements WorkExperienceState {
       _$WorkExperienceStateImpl.fromJson;
 
   @override
-  WorkExperienceModel? get selectedWorkExperience;
+  int get selectedWorkExperienceIndex;
   @override
   List<WorkExperienceModel> get experienceList;
   @override

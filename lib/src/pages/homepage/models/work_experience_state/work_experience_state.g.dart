@@ -9,10 +9,7 @@ part of 'work_experience_state.dart';
 _$WorkExperienceStateImpl _$$WorkExperienceStateImplFromJson(
         Map<String, dynamic> json) =>
     _$WorkExperienceStateImpl(
-      selectedWorkExperience: json['selectedWorkExperience'] == null
-          ? null
-          : WorkExperienceModel.fromJson(
-              json['selectedWorkExperience'] as Map<String, dynamic>),
+      selectedWorkExperienceIndex: json['selectedWorkExperienceIndex'] as int,
       experienceList: (json['experienceList'] as List<dynamic>)
           .map((e) => WorkExperienceModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -21,6 +18,6 @@ _$WorkExperienceStateImpl _$$WorkExperienceStateImplFromJson(
 Map<String, dynamic> _$$WorkExperienceStateImplToJson(
         _$WorkExperienceStateImpl instance) =>
     <String, dynamic>{
-      'selectedWorkExperience': instance.selectedWorkExperience,
+      'selectedWorkExperienceIndex': instance.selectedWorkExperienceIndex,
       'experienceList': instance.experienceList,
     };

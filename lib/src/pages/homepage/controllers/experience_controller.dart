@@ -12,8 +12,11 @@ final _workExperienceList = [
     company: CompanyDetails(
       name: "Lomeyo",
       logo: "",
-      link: "",
+      desc:
+          "Eu duis cupidatat duis quis veniam fugiat consectetur deserunt aute consectetur occaecat quis. Commodo eu exercitation do officia ipsum eu aute sit est sit. Velit ullamco proident do velit est nisi qui. Ullamco do eiusmod nulla eu officia Lorem quis quis aliquip sit minim et. Ex tempor Lorem est eu quis cillum in aute nisi ullamco ad elit nisi. Sit exercitation incididunt nulla Lorem officia incididunt ex sit aliquip minim labore in aliqua.",
+      link: "https://lomeyo.com/",
       startDate: DateTime(2023, 11, 07),
+      endDate: DateTime.now(),
     ),
     positionList: [],
   ),
@@ -25,8 +28,11 @@ final _workExperienceList = [
     company: CompanyDetails(
       name: "Marhaba Ltd.",
       logo: "",
-      link: "",
+      desc:
+          "Id in ad cupidatat occaecat elit. Consectetur aliquip dolor dolor aliquip proident cupidatat. Aute ea quis id eiusmod. Elit consectetur laboris dolor reprehenderit irure velit et laboris ullamco. Eu irure voluptate do aliqua adipisicing culpa non dolore mollit nulla labore cillum aliqua enim.",
+      link: "https://marhaba.com.bd/",
       startDate: DateTime(2023, 05, 01),
+      endDate: DateTime(2023, 12, 31),
     ),
     positionList: [],
   ),
@@ -38,8 +44,11 @@ final _workExperienceList = [
     company: CompanyDetails(
       name: "RBF Tech Zone Ltd.",
       logo: "",
-      link: "",
+      desc:
+          "Dolore nulla et amet ullamco est occaecat incididunt ullamco aliqua aute et esse ipsum. Irure aliqua sunt tempor exercitation mollit. In proident consequat labore laboris sunt mollit excepteur sint laborum.",
+      link: "http://tech.rbfgroupbd.com/",
       startDate: DateTime(2022, 03, 01),
+      endDate: DateTime(2023, 09, 30),
     ),
     positionList: [],
   ),
@@ -52,9 +61,12 @@ final workExperienceStateProvider =
 
 class WorkExperienceStateNotifier extends Notifier<WorkExperienceState> {
   @override
-  build() => WorkExperienceState(experienceList: _workExperienceList);
+  build() => WorkExperienceState(
+        experienceList: _workExperienceList,
+        selectedWorkExperienceIndex: 1,
+      );
 
   onExperienceSelect(WorkExperienceModel experienceModel) {
-    state = state.copyWith(selectedWorkExperience: experienceModel);
+    state = state.copyWith(selectedWorkExperienceIndex: experienceModel.index);
   }
 }

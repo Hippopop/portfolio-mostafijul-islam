@@ -10,6 +10,7 @@ class CompanyDetails with _$CompanyDetails {
     required String name,
     required String logo,
     required String link,
+    required String desc,
     required DateTime startDate,
     DateTime? endDate,
   }) = _CompanyDetails;

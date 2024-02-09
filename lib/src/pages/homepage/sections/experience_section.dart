@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_hero/local_hero.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/work_experience_model/work_experience_model.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/experience_controller.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/flag_state_notifier.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
+import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
-import 'package:portfolio_mostafij/src/utilities/extensions/string_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
 
@@ -150,9 +151,18 @@ class ExperienceSection extends StatelessWidget {
                                       WorkExperienceWidget(
                                         experienceModel: workExperience,
                                         selectedExpIndex: controller
-                                            .selectedWorkExperience?.index,
-                                        onSelect: (data) {},
+                                            .selectedWorkExperienceIndex,
+                                        onSelect: (data) {
+                                          ref
+                                              .read(workExperienceStateProvider
+                                                  .notifier)
+                                              .onExperienceSelect(data);
+                                        },
                                         onHover: (state, data) {
+                                          ref
+                                              .read(workExperienceStateProvider
+                                                  .notifier)
+                                              .onExperienceSelect(data);
                                           final provider = ref
                                               .read(flagStateProvider.notifier);
 
@@ -163,11 +173,11 @@ class ExperienceSection extends StatelessWidget {
                                                 data.verticalIntensity);
                                             provider.changeHorizontalWind(
                                                 data.horizontalIntensity);
-                                          } else {
+                                          } /* else {
                                             provider.changeFlagIndex(0);
                                             provider.changeVerticalWind(0);
                                             provider.changeHorizontalWind(0);
-                                          }
+                                          } */
                                         },
                                       ),
                                       8.height,
@@ -198,6 +208,7 @@ class WorkExperienceWidget extends StatelessWidget {
     required this.selectedExpIndex,
     required this.experienceModel,
   });
+
   final int? selectedExpIndex;
   final WorkExperienceModel experienceModel;
   final void Function(WorkExperienceModel data) onSelect;
@@ -207,24 +218,183 @@ class WorkExperienceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: br8,
-        side: BorderSide(color: Colors.grey),
+        side: BorderSide(color: Colors.grey.shade300),
       ),
       child: InkWell(
         borderRadius: br8,
-        hoverColor: Colors.grey.shade300,
+        hoverColor: Colors.grey.shade200,
         onTap: () => onSelect(experienceModel),
         onHover: (value) => onHover(value, experienceModel),
-        child: const SizedBox(
-          height: 100,
-          child: Center(
-            child: Text(
-              "",
+        child: LocalHeroScope(
+          duration: Durations.medium2,
+          child: AnimatedSize(
+            duration: Durations.medium2,
+            child: Padding(
+              padding: all16,
+              child: selectedExpIndex == experienceModel.index
+                  ? ExpandedExperienceTile(experienceModel: experienceModel)
+                  : CollapsedExperienceTile(experienceModel: experienceModel),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class ExpandedExperienceTile extends StatelessWidget {
+  const ExpandedExperienceTile({
+    super.key,
+    required this.experienceModel,
+  });
+
+  final WorkExperienceModel experienceModel;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        12.height,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: LocalHero(
+            tag: "#COMPANY_ICON_${experienceModel.index}",
+            child: SizedBox.square(
+              dimension: 32,
+              child: Image.asset("assets/icons/company.png"),
+            ),
+          ),
+        ),
+        6.height,
+        LocalHero(
+          tag: "#COMPANY_NAME_${experienceModel.index}",
+          child: Text(
+            experienceModel.company.name,
+            style: context.text.titleLarge?.merge(
+              GoogleFonts.sansita(
+                decorationThickness: 0.3,
+                decoration: TextDecoration.underline,
+                decorationStyle: TextDecorationStyle.dashed,
+              ),
+            ),
+          ),
+        ),
+        4.height,
+        Row(
+          children: [
+            Text(
+              "${experienceModel.company.startDate.year} - ${experienceModel.company.endDate?.year}",
+            ),
+            4.width,
+            Text(
+              "(${(experienceModel.company.endDate ?? DateTime.now()).difference(experienceModel.company.startDate).adaptiveDurationString})",
+              style: context.text.bodyLarge?.merge(
+                GoogleFonts.roboto(
+                  color: context.color.primary,
+                  decorationThickness: 0.3,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class CollapsedExperienceTile extends StatelessWidget {
+  const CollapsedExperienceTile({
+    super.key,
+    required this.experienceModel,
+  });
+
+  final WorkExperienceModel experienceModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  LocalHero(
+                    tag: "#COMPANY_ICON_${experienceModel.index}",
+                    child: SizedBox.square(
+                      dimension: 24,
+                      child: Image.asset("assets/icons/company.png"),
+                    ),
+                  ),
+                  12.width,
+                  LocalHero(
+                    tag: "#COMPANY_NAME_${experienceModel.index}",
+                    child: Text(
+                      experienceModel.company.name,
+                      style: context.text.titleLarge?.merge(
+                        GoogleFonts.sansita(
+                          decorationThickness: 0.3,
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.dashed,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              4.height,
+              Row(
+                children: [
+                  const SizedBox.square(
+                    dimension: 24,
+                  ),
+                  12.width,
+                  Text(
+                    experienceModel.positionList.firstOrNull?.name ??
+                        "Flutter Developer",
+                    style: context.text.bodyLarge?.merge(
+                      GoogleFonts.roboto(
+                        decorationThickness: 0.3,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(
+              height: 24,
+              child: Center(
+                child: Text(
+                  "${experienceModel.company.startDate.year} - ${experienceModel.company.endDate?.year}",
+                ),
+              ),
+            ),
+            4.height,
+            Text(
+              (experienceModel.company.endDate ?? DateTime.now())
+                  .difference(experienceModel.company.startDate)
+                  .adaptiveDurationString,
+              style: context.text.bodyLarge?.merge(
+                GoogleFonts.roboto(
+                  color: context.color.primary,
+                  decorationThickness: 0.3,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

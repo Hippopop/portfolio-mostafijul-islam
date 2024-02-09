@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,8 +51,9 @@ class HeroSection extends StatelessWidget {
                 child: Row(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        52.height,
+                        72.height,
                         const HeroDetailsSection(),
                       ],
                     ),
@@ -189,11 +189,7 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
               ],
             ),
-          )
-              .animate()
-              .fadeIn(duration: _initialDuration)
-              // .then(delay: 200.ms) // baseline=800ms
-              .slide(),
+          ).animate().fadeIn(duration: _initialDuration).slide(),
           18.height,
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 500),
@@ -206,11 +202,7 @@ class HeroDetailsSection extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 color: context.color.secondaryText,
               ),
-            )
-                .animate()
-                .fadeIn(duration: _initialDuration)
-                // .then(delay: 200.ms) // baseline=800ms
-                .slide(),
+            ).animate().fadeIn(duration: _initialDuration).slide(),
           ),
         ],
       ),

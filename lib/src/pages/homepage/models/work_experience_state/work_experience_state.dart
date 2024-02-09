@@ -8,7 +8,7 @@ part 'work_experience_state.g.dart';
 @freezed
 class WorkExperienceState with _$WorkExperienceState {
   const factory WorkExperienceState({
-    WorkExperienceModel? selectedWorkExperience,
+    required int selectedWorkExperienceIndex,
     required List<WorkExperienceModel> experienceList,
   }) = _WorkExperienceState;
 
