@@ -14,10 +14,11 @@ import 'package:portfolio_mostafij/src/pages/homepage/controllers/experience_con
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/flag_state_notifier.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions.dart';
-import 'package:portfolio_mostafij/src/utilities/extensions/list_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
+
+final _initialDuration = 800.ms;
 
 class RivePositionFlag extends ConsumerStatefulWidget {
   const RivePositionFlag({
@@ -90,17 +91,8 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
                     horizontalWind?.value = next.verticalWind.toDouble();
                   },
                 );
-                return InkWell(
-                  onTap: () {
-                    /* final provider = ref.read(flagStateProvider.notifier);
-                    final index = ((flagIndex?.value ?? 0) + 1).toInt();
-                    provider.changeFlagIndex(_rotateWithinLength(index, 4));
-                    provider.changeVerticalWind(100);
-                    provider.changeHorizontalWind(100); */
-                  },
-                  child: Rive(
-                    artboard: artboard!,
-                  ),
+                return Rive(
+                  artboard: artboard!,
                 );
               },
             ),
@@ -145,7 +137,9 @@ class ExperienceSection extends StatelessWidget {
                   Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 200),
-                      child: const RivePositionFlag(),
+                      child: const RivePositionFlag()
+                          .animate()
+                          .fadeIn(duration: _initialDuration),
                     ),
                   ),
                   Consumer(
@@ -177,7 +171,9 @@ class ExperienceSection extends StatelessWidget {
                                               .notifier)
                                           .onExperienceSelect(data);
                                     },
-                                  ),
+                                  )
+                                      .animate()
+                                      .slideY(duration: _initialDuration),
                                 ),
                               )
                               .toList(),
@@ -206,7 +202,9 @@ class ExperienceSection extends StatelessWidget {
                   IntrinsicHeight(
                     child: Row(
                       children: [
-                        const RivePositionFlag(),
+                        const RivePositionFlag()
+                            .animate()
+                            .fadeIn(duration: _initialDuration),
                         24.width,
                         Expanded(
                           child: Consumer(builder: (context, ref, child) {
@@ -249,7 +247,9 @@ class ExperienceSection extends StatelessWidget {
                                                   data.horizontalIntensity);
                                             }
                                           },
-                                        ).animate().slideY(),
+                                        )
+                                            .animate()
+                                            .slideY(duration: _initialDuration),
                                       ),
                                     )
                                     .toList(),
