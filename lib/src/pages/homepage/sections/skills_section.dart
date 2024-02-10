@@ -11,7 +11,7 @@ class SkillsSection extends StatefulWidget {
     super.key,
   });
 
-  final double speed = 50;
+  final double speed = 10;
 
   @override
   State<SkillsSection> createState() => _SkillsSectionState();
@@ -37,8 +37,10 @@ class _SkillsSectionState extends State<SkillsSection> {
     );
   }
 
+  bool _stopScroll = false;
+
   _autoScrollSettingCallback(Timer timer) {
-    if (_scrollController.hasClients) {
+    if (_scrollController.hasClients && !_stopScroll) {
       final currentPosition = _scrollController.offset;
       _scrollController.animateTo(
         currentPosition + widget.speed,
@@ -57,9 +59,16 @@ class _SkillsSectionState extends State<SkillsSection> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: context.responsiveStateListener,
-        builder: (context, state, child) {
-          return ColoredBox(
+      valueListenable: context.responsiveStateListener,
+      builder: (context, state, child) {
+        return MouseRegion(
+          onEnter: (event) => setState(() {
+            _stopScroll = true;
+          }),
+          onExit: (event) => setState(() {
+            _stopScroll = false;
+          }),
+          child: ColoredBox(
             color: Colors.white,
             child: MaterialTwoSpecificationWrapper(
               state: context.responsiveState,
@@ -111,7 +120,9 @@ class _SkillsSectionState extends State<SkillsSection> {
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final _initialDuration = 800.ms;
 
@@ -202,6 +204,55 @@ class HeroDetailsSection extends StatelessWidget {
                 color: context.color.secondaryText,
               ),
             ).animate().fadeIn(duration: _initialDuration).slide(),
+          ),
+          12.height,
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 320),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(),
+                      onPressed: () {
+                        launchUrl(Uri.parse("mailto:mostafijul929@gmail.com"));
+                      },
+                      icon: Icon(
+                        Icons.call_outlined,
+                        size: 18,
+                        color: context.color.opposite,
+                      ),
+                      label: Padding(
+                        padding: vertical12 + horizontal3,
+                        child: Text("Contact"),
+                      ),
+                    ),
+                  ),
+                  8.width,
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(
+                            "https://drive.google.com/file/d/10dqBPqVrJqC_cINbWBThTJmVJLh7uqG4/view?usp=drive_link",
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.file_download_outlined,
+                        size: 18,
+                        color: context.color.opposite,
+                      ),
+                      label: Padding(
+                        padding: vertical12 + horizontal3,
+                        child: Text("Resume"),
+                      ),
+                    ),
+                  ),
+                ],
+              ).animate().fadeIn(duration: _initialDuration).slide(),
+            ),
           ),
         ],
       ),
