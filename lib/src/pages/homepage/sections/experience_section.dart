@@ -17,6 +17,7 @@ import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final _initialDuration = 800.ms;
 
@@ -337,18 +338,37 @@ class ExpandedExperienceTile extends StatelessWidget {
           ),
         ),
         6.height,
-        LocalHero(
-          tag: "#COMPANY_NAME_${experienceModel.index}",
-          child: Text(
-            experienceModel.company.name,
-            style: context.text.titleLarge?.merge(
-              GoogleFonts.sansita(
-                decorationThickness: 0.3,
-                decoration: TextDecoration.underline,
-                decorationStyle: TextDecorationStyle.dashed,
+        Row(
+          children: [
+            LocalHero(
+              tag: "#COMPANY_NAME_${experienceModel.index}",
+              child: Text(
+                experienceModel.company.name,
+                style: context.text.titleLarge?.merge(
+                  GoogleFonts.sansita(
+                    decorationThickness: 0.3,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.dashed,
+                  ),
+                ),
               ),
             ),
-          ),
+            3.width,
+            IconButton(
+              iconSize: 16,
+              padding: emptyPadding,
+              color: Colors.black38,
+              constraints: const BoxConstraints(minHeight: 0, minWidth: 0),
+              onPressed: () {
+                launchUrl(Uri.parse(experienceModel.company.link));
+              },
+              icon: const Icon(
+                Icons.open_in_new_rounded,
+              ),
+            )
+                .animate(delay: Durations.medium2)
+                .fadeIn(duration: Durations.medium3),
+          ],
         ),
         4.height,
         Wrap(
