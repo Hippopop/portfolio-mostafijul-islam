@@ -10,4 +10,12 @@ extension StringHelperExtensions on String {
     final capChar = characters.first.toUpperCase();
     return capChar + substring(1);
   }
+
+  int get toColorValue {
+    bool hasHash = characters.first == '#';
+    final value = int.tryParse("0xff${substring(1)}");
+    final isPureCode = hasHash && length == 7 && value != null;
+    assert(isPureCode, "This is not a correct [Color] hash code!");
+    return value!;
+  }
 }

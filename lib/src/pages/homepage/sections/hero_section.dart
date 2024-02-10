@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +5,8 @@ import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
+
+final _initialDuration = 800.ms;
 
 class HeroSection extends StatelessWidget {
   const HeroSection({
@@ -21,13 +22,12 @@ class HeroSection extends StatelessWidget {
           state: context.responsiveState,
           child: switch (state) {
             ResponsiveState.sm ||
-            ResponsiveState.ts ||
-            ResponsiveState.xs =>
+            ResponsiveState.xs ||
+            ResponsiveState.ts =>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         maxHeight: 340,
@@ -38,17 +38,24 @@ class HeroSection extends StatelessWidget {
                       child: FittedBox(
                         child: const HeroRiveFace()
                             .animate()
-                            .fadeIn(duration: 800.ms),
+                            .fadeIn(duration: _initialDuration),
                       ),
                     ),
                   ),
+                  12.height,
                   const HeroDetailsSection(),
                 ],
               ),
             _ => IntrinsicHeight(
                 child: Row(
                   children: [
-                    const HeroDetailsSection(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        72.height,
+                        const HeroDetailsSection(),
+                      ],
+                    ),
                     4.width,
                     Expanded(
                       child: Center(
@@ -56,7 +63,7 @@ class HeroSection extends StatelessWidget {
                           alignment: Alignment.center,
                           child: const HeroRiveFace()
                               .animate()
-                              .fadeIn(duration: 800.ms),
+                              .fadeIn(duration: _initialDuration),
                         ),
                       ),
                     ),
@@ -112,7 +119,6 @@ class HeroDetailsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          72.height,
           RichText(
             softWrap: true,
             text: TextSpan(
@@ -148,27 +154,32 @@ class HeroDetailsSection extends StatelessWidget {
                   ),
                 ),
                 WidgetSpan(
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: [
-                      ColorizeAnimatedText(
-                        "Flutter Developer",
-                        speed: Durations.extralong4,
-                        textStyle: context.text.headlineMedium!.merge(
-                          GoogleFonts.sofia(
-                            fontWeight: FontWeight.bold,
-                            decorationColor: Colors.blue,
-                            color: context.color.opposite,
-                            decorationStyle: TextDecorationStyle.wavy,
-                          ),
-                        ),
-                        colors: [
-                          Colors.blue,
-                          Colors.grey,
-                          Colors.blue,
-                          Colors.grey,
-                        ],
+                  child: Text(
+                    "Flutter Developer",
+                    style: context.text.headlineMedium!.merge(
+                      GoogleFonts.sofia(
+                        fontWeight: FontWeight.bold,
+                        color: context.color.opposite,
                       ),
+                    ),
+                  )
+                      .animate(onPlay: (controller) => controller.repeat())
+                      .shimmer(
+                    curve: Curves.ease,
+                    duration: 5.seconds,
+                    colors: [
+                      Colors.blue,
+                      Colors.blue.shade300,
+                      Colors.grey.shade400,
+                      Colors.grey,
+                      Colors.grey.shade300,
+                      Colors.blue,
+                      Colors.blue.shade300,
+                      Colors.grey.shade400,
+                      Colors.grey,
+                      Colors.grey.shade300,
+                      Colors.blue.shade300,
+                      Colors.blue,
                     ],
                   ),
                 ),
@@ -177,11 +188,7 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
               ],
             ),
-          )
-              .animate()
-              .fadeIn(duration: 800.ms)
-              // .then(delay: 200.ms) // baseline=800ms
-              .slide(),
+          ).animate().fadeIn(duration: _initialDuration).slide(),
           18.height,
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 500),
@@ -194,11 +201,7 @@ class HeroDetailsSection extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 color: context.color.secondaryText,
               ),
-            )
-                .animate()
-                .fadeIn(duration: 800.ms)
-                // .then(delay: 200.ms) // baseline=800ms
-                .slide(),
+            ).animate().fadeIn(duration: _initialDuration).slide(),
           ),
         ],
       ),

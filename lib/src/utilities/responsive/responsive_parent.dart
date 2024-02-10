@@ -51,7 +51,13 @@ enum ResponsiveState implements Comparable<ResponsiveState> {
     layoutColumn: 12,
     bodyWidth: 840,
   ),
-  lg(min: 1250, max: 1500, bodyMargin: 200, layoutColumn: 12, bodyWidth: null),
+  lg(
+    min: 1250,
+    max: 1500,
+    bodyMargin: 200,
+    layoutColumn: 12,
+    bodyWidth: null,
+  ),
   xl(
     min: 1500,
     max: double.infinity,
