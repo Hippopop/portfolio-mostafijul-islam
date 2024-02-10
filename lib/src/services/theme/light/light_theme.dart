@@ -53,11 +53,11 @@ final lightTheme = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: _opposite,
+      foregroundColor: _extraTextColor,
       surfaceTintColor: _primaryColor,
       textStyle: GoogleFonts.roboto(
-        color: _primaryColor,
-        fontWeight: FontWeight.w100,
+        color: _extraTextColor,
+        fontWeight: FontWeight.w300,
       ),
       shape: const StadiumBorder(),
       side: const BorderSide(

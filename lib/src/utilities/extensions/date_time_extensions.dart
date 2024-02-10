@@ -5,9 +5,9 @@ extension DurationExtensions on Duration {
         Duration(inHours: int hour) when hour.abs() < 24 => "$hour hours",
         Duration(inDays: int day) when day.abs() < 7 => "$day days",
         Duration(inDays: int day) when day.abs() < 30 =>
-          "${(day / 7).toStringAsFixed(1)}  weeks",
+          "${(day / 7).toStringAsFixed(0)}  weeks",
         Duration(inDays: int day) when day.abs() < 365 =>
-          "${(day / 30).toStringAsFixed(1)}  months",
+          "${(day / 30).toStringAsFixed(0)}  months",
         _ => "${(inDays / 365).toStringAsFixed(1)}  years",
       };
 }
