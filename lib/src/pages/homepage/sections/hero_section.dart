@@ -27,8 +27,7 @@ class HeroSection extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
+                  Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
                         maxHeight: 340,

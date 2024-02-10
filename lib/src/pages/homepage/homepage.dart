@@ -40,9 +40,9 @@ class BodySection extends StatelessWidget {
       child: Column(
         children: [
           const HeroSection(),
-          24.height,
+          32.height,
           const SkillsSection(),
-          24.height,
+          32.height,
           const ExperienceSection(),
           24.height,
         ],

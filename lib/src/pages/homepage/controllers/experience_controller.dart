@@ -3,6 +3,8 @@ import 'package:portfolio_mostafij/src/data/models/work_experience/company_detai
 import 'package:portfolio_mostafij/src/data/models/work_experience/work_experience_model/work_experience_model.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/models/work_experience_state/work_experience_state.dart';
 
+import 'flag_state_notifier.dart';
+
 final _workExperienceList = [
   WorkExperienceModel(
     index: 1,
@@ -67,5 +69,9 @@ class WorkExperienceStateNotifier extends Notifier<WorkExperienceState> {
 
   onExperienceSelect(WorkExperienceModel experienceModel) {
     state = state.copyWith(selectedWorkExperienceIndex: experienceModel.index);
+    final provider = ref.read(flagStateProvider.notifier);
+    provider.changeFlagIndex(experienceModel.index);
+    provider.changeVerticalWind(experienceModel.verticalIntensity);
+    provider.changeHorizontalWind(experienceModel.horizontalIntensity);
   }
 }
