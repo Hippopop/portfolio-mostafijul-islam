@@ -39,7 +39,13 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
   @override
   void initState() {
     super.initState();
-    _initializeArtboard().then((value) => setState(() {}));
+    _initializeArtboard().then((value) => setState(() {})).onError(
+          (error, stackTrace) => log(
+            "Error from ExperienceSection(_initializeArtboard)",
+            error: error,
+            stackTrace: stackTrace,
+          ),
+        );
   }
 
   Future<void> _initializeArtboard() async {
