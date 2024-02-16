@@ -151,7 +151,7 @@ class ExperienceSection extends StatelessWidget {
                   ),
                   Consumer(
                     builder: (context, ref, child) {
-                      log(MediaQuery.of(context).size.width.toString());
+                      print(MediaQuery.of(context).size.height);
                       final controller = ref.watch(workExperienceStateProvider);
                       return Column(
                         children: [
@@ -197,7 +197,7 @@ class ExperienceSection extends StatelessWidget {
                     padding: vertical16,
                     child: Center(
                       child: Text(
-                        "Work Experience",
+                        "· Work Experience ·",
                         style: context.text.headlineMedium?.merge(
                           GoogleFonts.sofia(
                             color: context.color.opposite,
