@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_mostafij/src/utilities/widgets/spinning_feedback_button.dart';
-import 'package:portfolio_mostafij/src/utilities/widgets/warning_banner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'services/router/routes.dart';
 import 'services/theme/controller/theme_controller.dart';
@@ -21,9 +21,11 @@ class App extends ConsumerWidget {
       builder: (context, child) {
         return FeedbackButtonWrapper(
           child: child,
-          onTap: () {
-            print("Open Feedback Page!");
-          },
+          onTap: () => launchUrl(
+            Uri.parse(
+              "https://github.com/Hippopop/portfolio-mostafijul-islam/issues",
+            ),
+          ),
         );
       },
     );

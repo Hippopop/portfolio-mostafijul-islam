@@ -16,7 +16,7 @@ class FeedbackButtonWrapper extends StatelessWidget {
         child ?? const SizedBox(),
         Positioned(
           right: 12,
-          bottom: 12,
+          top: 12,
           child: FeedbackButton(
             onPressed: onTap,
           ),
@@ -51,6 +51,7 @@ class _FeedbackButtonState extends State<FeedbackButton>
     duration: const Duration(seconds: 10),
   );
 
+// bluePrintController and Animation
   late final _blueprintController = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 800),
@@ -59,6 +60,7 @@ class _FeedbackButtonState extends State<FeedbackButton>
     _blueprintController,
   );
 
+// DecorationController and Animation
   late final _decorationController = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 400),
@@ -131,97 +133,101 @@ class _FeedbackButtonState extends State<FeedbackButton>
         onExit: (_) => _hideBlueprint(),
         cursor: SystemMouseCursors.click,
         child: RepaintBoundary(
-          child: ClipOval(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Background circle.
-                Positioned.fill(
-                  child: AnimatedBuilder(
-                    animation: _blueprintAnimation,
-                    builder: (context, child) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration.lerp(
-                          const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: RadialGradient(
-                              colors: [
-                                Color.fromRGBO(240, 244, 250, 1),
-                                Color.fromRGBO(240, 244, 250, 1),
-                              ],
-                              stops: [0, 1],
-                            ),
-                          ),
-                          const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: RadialGradient(
-                              colors: [Color(0xFF6391E9), Color(0xFF385DE0)],
-                              stops: [0.245, 1],
-                              center: Alignment.topCenter,
-                              radius: 1,
-                            ),
-                          ),
-                          _blueprintAnimation.value,
-                        )!,
-                      );
-                    },
-                  ),
-                ),
-                // Background circle shadow.
-                Positioned.fill(
-                  child: ValueListenableBuilder(
-                    valueListenable: _isPressed,
-                    builder: (context, isPressed, _) {
-                      if (!isPressed) {
-                        return const SizedBox.shrink();
-                      }
-
-                      return const DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0x22000000),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                // Label with decoration.
-                _LabelDecoration(
-                  blueprintAnimation: _blueprintAnimation,
-                  decorationAnimation: _decorationAnimation,
-                  label: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 1,
-                      horizontal: 6,
-                    ),
+          child: Material(
+            type: MaterialType.button,
+            color: Colors.transparent,
+            child: ClipOval(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Background circle.
+                  Positioned.fill(
                     child: AnimatedBuilder(
-                      animation: _decorationAnimation,
-                      builder: (context, _) {
-                        return Text(
-                          'FEEDBACK',
-                          overflow: TextOverflow.ellipsis,
-                          style: _labelTextStyle.copyWith(
-                            color: Color.lerp(
-                              const Color(0xFF15171B),
-                              Colors.white,
-                              _decorationAnimation.value,
+                      animation: _blueprintAnimation,
+                      builder: (context, child) {
+                        return DecoratedBox(
+                          decoration: BoxDecoration.lerp(
+                            const BoxDecoration(
+                              shape: BoxShape.circle,
+                              /* gradient: RadialGradient(
+                                colors: [
+                                  Color.fromRGBO(240, 244, 250, 1),
+                                  Color.fromRGBO(240, 244, 250, 1),
+                                ],
+                                stops: [0, 1],
+                              ), */
                             ),
+                            const BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: RadialGradient(
+                                colors: [Color(0xFF6391E9), Color(0xFF385DE0)],
+                                stops: [0.245, 1],
+                                center: Alignment.topCenter,
+                                radius: 1,
+                              ),
+                            ),
+                            _blueprintAnimation.value,
+                          )!,
+                        );
+                      },
+                    ),
+                  ),
+                  // Background circle shadow.
+                  Positioned.fill(
+                    child: ValueListenableBuilder(
+                      valueListenable: _isPressed,
+                      builder: (context, isPressed, _) {
+                        if (!isPressed) {
+                          return const SizedBox.shrink();
+                        }
+
+                        return const DecoratedBox(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0x22000000),
                           ),
                         );
                       },
                     ),
                   ),
-                ),
-                // Spinning text.
-                Positioned.fill(
-                  child: _SpinningText(
-                    text: 'CURRENTLY UNDER DEVELOPMENT · ',
-                    style: _rotatedTextStyle,
-                    spinningAnimation: _spinningController,
+                  // Label with decoration.
+                  _LabelDecoration(
                     blueprintAnimation: _blueprintAnimation,
+                    decorationAnimation: _decorationAnimation,
+                    label: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 1,
+                        horizontal: 6,
+                      ),
+                      child: AnimatedBuilder(
+                        animation: _decorationAnimation,
+                        builder: (context, _) {
+                          return Text(
+                            'beta',
+                            overflow: TextOverflow.ellipsis,
+                            style: _labelTextStyle.copyWith(
+                              color: Color.lerp(
+                                const Color(0xFF15171B),
+                                Colors.white,
+                                _decorationAnimation.value,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  // Spinning text.
+                  Positioned.fill(
+                    child: _SpinningText(
+                      text: 'FOUND ANY BUG TO SUBMIT · ',
+                      style: _rotatedTextStyle,
+                      spinningAnimation: _spinningController,
+                      blueprintAnimation: _blueprintAnimation,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_mostafij/src/pages/homepage/sections/projects_section.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 
@@ -44,7 +45,9 @@ class BodySection extends StatelessWidget {
           const SkillsSection(),
           32.height,
           const ExperienceSection(),
-          24.height,
+          32.height,
+          const ProjectsSection(),
+          200.height,
         ],
       ),
     );
