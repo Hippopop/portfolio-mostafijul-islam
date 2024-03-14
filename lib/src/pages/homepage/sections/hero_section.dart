@@ -211,7 +211,7 @@ class HeroDetailsSection extends StatelessWidget {
                     color: context.color.secondaryText,
                   ),
                 ).animate().fadeIn(duration: _initialDuration).slide(),
-                12.height,
+                /*  12.height,
                 Text(
                   "(*whisper) Did you know this portfolio is made with Flutter too. Isn't it amazing?!? Also it gives you the best experience in a mouse controlled environment. With a large computer screen.",
                   softWrap: true,
@@ -221,7 +221,7 @@ class HeroDetailsSection extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: context.color.secondaryText,
                   ),
-                ).animate().fadeIn(duration: _initialDuration).slide(),
+                ).animate().fadeIn(duration: _initialDuration).slide(), */
               ],
             ),
           ),
