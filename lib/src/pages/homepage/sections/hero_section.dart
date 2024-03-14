@@ -124,7 +124,7 @@ class HeroDetailsSection extends StatelessWidget {
           RichText(
             softWrap: true,
             text: TextSpan(
-              text: "Hello! 👋\nI'm ",
+              text: "Hello! \u{1F44B}\nI'm ",
               style: context.text.headlineMedium?.merge(
                 GoogleFonts.sofia(
                   color: context.color.opposite,
@@ -165,17 +165,21 @@ class HeroDetailsSection extends StatelessWidget {
                       ),
                     ),
                   )
-                      .animate(onPlay: (controller) => controller.repeat())
+                      .animate(
+                    onPlay: (controller) => controller.repeat(),
+                    delay: 5.seconds,
+                  )
                       .shimmer(
                     curve: Curves.ease,
-                    duration: 5.seconds,
+                    duration: 10.seconds,
                     colors: [
                       Colors.blue,
                       Colors.blue.shade300,
                       Colors.grey.shade400,
                       Colors.grey,
                       Colors.grey.shade300,
-                      Colors.blue,
+                      Colors.blue.shade300,
+                      ...List.generate(10, (index) => Colors.blue),
                       Colors.blue.shade300,
                       Colors.grey.shade400,
                       Colors.grey,
@@ -194,16 +198,32 @@ class HeroDetailsSection extends StatelessWidget {
           18.height,
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 500),
-            child: Text(
-              "I build cross-platform apps using Flutter. But just like Flutter I specialize at building Mobile apps. Basically Android & iOS.",
-              softWrap: true,
-              maxLines: 100,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w300,
-                color: context.color.secondaryText,
-              ),
-            ).animate().fadeIn(duration: _initialDuration).slide(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "I build cross-platform apps using Flutter. But just like Flutter I specialize at building Mobile apps. Basically Android & iOS.",
+                  softWrap: true,
+                  maxLines: 100,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w300,
+                    color: context.color.secondaryText,
+                  ),
+                ).animate().fadeIn(duration: _initialDuration).slide(),
+                12.height,
+                Text(
+                  "(*whisper) Did you know this portfolio is made with Flutter too. Isn't it amazing?!? Also it gives you the best experience in a mouse controlled environment. With a large computer screen.",
+                  softWrap: true,
+                  maxLines: 100,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w300,
+                    color: context.color.secondaryText,
+                  ),
+                ).animate().fadeIn(duration: _initialDuration).slide(),
+              ],
+            ),
           ),
           12.height,
           ConstrainedBox(
@@ -224,7 +244,7 @@ class HeroDetailsSection extends StatelessWidget {
                       ),
                       label: Padding(
                         padding: vertical12 + horizontal3,
-                        child: Text("Contact"),
+                        child: const Text("Contact"),
                       ),
                     ),
                   ),
@@ -246,7 +266,7 @@ class HeroDetailsSection extends StatelessWidget {
                       ),
                       label: Padding(
                         padding: vertical12 + horizontal3,
-                        child: Text("Resume"),
+                        child: const Text("Resume"),
                       ),
                     ),
                   ),

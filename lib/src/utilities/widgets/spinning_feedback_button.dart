@@ -203,7 +203,7 @@ class _FeedbackButtonState extends State<FeedbackButton>
                         animation: _decorationAnimation,
                         builder: (context, _) {
                           return Text(
-                            'beta',
+                            '.beta',
                             overflow: TextOverflow.ellipsis,
                             style: _labelTextStyle.copyWith(
                               color: Color.lerp(

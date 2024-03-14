@@ -8,7 +8,6 @@ import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/colors_theme.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/list_extensions.dart';
-import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 
 class ProjectsSection extends StatefulWidget {
@@ -194,9 +193,7 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print("Clicked Project Item");
-      },
+      onTap: () {},
       onHover: (value) {
         if (value) {
           _controller.forward();

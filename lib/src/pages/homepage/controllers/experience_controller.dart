@@ -55,7 +55,7 @@ final _workExperienceList = [
   ),
 ];
 
-final workExperienceStateProvider =
+final workExpProvider =
     NotifierProvider<WorkExperienceStateNotifier, WorkExperienceState>(
   WorkExperienceStateNotifier.new,
 );

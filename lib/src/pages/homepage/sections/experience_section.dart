@@ -107,11 +107,14 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
   }
 }
 
-class ExperienceSection extends StatelessWidget {
-  const ExperienceSection({
-    super.key,
-  });
+class ExperienceSection extends StatefulWidget {
+  const ExperienceSection({super.key});
 
+  @override
+  State<ExperienceSection> createState() => _ExperienceSectionState();
+}
+
+class _ExperienceSectionState extends State<ExperienceSection> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -151,8 +154,7 @@ class ExperienceSection extends StatelessWidget {
                   ),
                   Consumer(
                     builder: (context, ref, child) {
-                      print(MediaQuery.of(context).size.height);
-                      final controller = ref.watch(workExperienceStateProvider);
+                      final controller = ref.watch(workExpProvider);
                       return Column(
                         children: [
                           ...controller.experienceList
@@ -165,18 +167,16 @@ class ExperienceSection extends StatelessWidget {
                                             .selectedWorkExperienceIndex ==
                                         workExperience.index,
                                     onSelect: (data) {
-                                      ref
-                                          .read(
-                                            workExperienceStateProvider
-                                                .notifier,
-                                          )
-                                          .onExperienceSelect(data);
+                                      final controller = ref.read(
+                                        workExpProvider.notifier,
+                                      );
+                                      controller.onExperienceSelect(data);
                                     },
-                                    onHover: (state, data) {
-                                      ref
-                                          .read(workExperienceStateProvider
-                                              .notifier)
-                                          .onExperienceSelect(data);
+                                    onHover: (state, data) async {
+                                      final controller = ref.read(
+                                        workExpProvider.notifier,
+                                      );
+                                      controller.onExperienceSelect(data);
                                     },
                                   )
                                       .animate()
@@ -215,8 +215,7 @@ class ExperienceSection extends StatelessWidget {
                         24.width,
                         Expanded(
                           child: Consumer(builder: (context, ref, child) {
-                            final controller =
-                                ref.watch(workExperienceStateProvider);
+                            final controller = ref.watch(workExpProvider);
                             return Column(
                               children: [
                                 ...controller.experienceList
@@ -231,16 +230,12 @@ class ExperienceSection extends StatelessWidget {
                                               workExperience.index,
                                           onSelect: (data) {
                                             ref
-                                                .read(
-                                                    workExperienceStateProvider
-                                                        .notifier)
+                                                .read(workExpProvider.notifier)
                                                 .onExperienceSelect(data);
                                           },
                                           onHover: (state, data) {
                                             ref
-                                                .read(
-                                                    workExperienceStateProvider
-                                                        .notifier)
+                                                .read(workExpProvider.notifier)
                                                 .onExperienceSelect(data);
                                             final provider = ref.read(
                                                 flagStateProvider.notifier);
