@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/sections/projects_section.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/helpers/scroll/smooth_scroll_controller.dart';
@@ -40,45 +43,35 @@ class BodySection extends StatefulWidget {
 
 class _BodySectionState extends State<BodySection> {
   bool _canPoint = true;
-  late final controller = SmoothScrollController();
-  // Timer? _debounceTimer;
+  Timer? _debounceTimer;
 
   @override
   void dispose() {
-    // _debounceTimer?.cancel();
-    controller.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
   }
 
-  // _debounceSetFunction() {
-  //   setState(() => _canPoint = false);
-
-  //   _debounceTimer?.cancel();
-  //   _debounceTimer = null;
-  //   _debounceTimer = Timer.periodic(300.milliseconds, (tick) {
-  //     setState(() => _canPoint = true);
-  //     _debounceTimer?.cancel();
-  //   });
-  // }
+  _debounceSetFunction() {
+    _debounceTimer = Timer.periodic(500.milliseconds, (tick) {
+      setState(() => _canPoint = true);
+      _debounceTimer?.cancel();
+      _debounceTimer = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
-        // if (notification is ScrollStartNotification) _debounceSetFunction();
-        if (notification is ScrollStartNotification) {
-          setState(() {
-            _canPoint = false;
-          });
+        if (notification is ScrollStartNotification && _canPoint) {
+          setState(() => _canPoint = false);
         } else if (notification is ScrollEndNotification) {
-          setState(() {
-            _canPoint = true;
-          });
+          _debounceSetFunction();
         }
         return true;
       },
       child: SingleChildScrollView(
-        controller: controller,
+        // controller: controller,
         child: Column(
           children: [
             const HeroSection(),

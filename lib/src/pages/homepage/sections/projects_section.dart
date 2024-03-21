@@ -99,63 +99,110 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   }),
                   child: ClipRRect(
                     borderRadius: br12,
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        borderRadius: br12,
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            "https://images.unsplash.com/photo-1620646233562-f2a31ad24425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHN0YXJyeSUyMHNreXxlbnwwfHwwfHx8MA%3D%3D",
+                    child: Stack(
+                      clipBehavior: Clip.hardEdge,
+                      alignment: Alignment.center,
+                      fit: StackFit.passthrough,
+                      children: [
+                        GestureDetector(
+                          onTap: () => print("Tapped On Project Background!"),
+                          child: SizedBox.expand(
+                            child: Image.network(
+                              "https://images.unsplash.com/photo-1620646233562-f2a31ad24425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHN0YXJyeSUyMHNreXxlbnwwfHwwfHx8MA%3D%3D",
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          fit: BoxFit.cover,
                         ),
-                      ),
-                      child: Stack(
-                        clipBehavior: Clip.hardEdge,
-                        alignment: Alignment.center,
-                        fit: StackFit.passthrough,
-                        children: [
-                          Positioned(
-                            top: -100,
-                            bottom: -100,
-                            child: SizedBox(
-                              width: constraints.maxWidth,
-                              child: AnimatedContainer(
-                                duration: Durations.long1,
-                                transform: _stopScroll
-                                    ? Matrix4.identity()
-                                    : Matrix4.skew(0.3, -0),
-                                child: Padding(
-                                  padding: horizontal16,
-                                  child: GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 12,
-                                      mainAxisSpacing: 12,
-                                    ),
-                                    controller: _scrollController,
-                                    itemBuilder: (context, index) {
-                                      final item =
-                                          _imageList.rotatedIndexedItem(index);
-                                      if (item == null) return null;
-                                      return SingleProjectWIdget(item: item);
-                                    },
+                        Positioned(
+                          top: -100,
+                          bottom: -100,
+                          child: SizedBox(
+                            width: constraints.maxWidth,
+                            child: AnimatedContainer(
+                              duration: Durations.long1,
+                              transform: _stopScroll
+                                  ? Matrix4.identity()
+                                  : Matrix4.skew(0.3, -0),
+                              child: Padding(
+                                padding: horizontal16,
+                                child: GridView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 12,
                                   ),
+                                  controller: _scrollController,
+                                  itemBuilder: (context, index) {
+                                    final item =
+                                        _imageList.rotatedIndexedItem(index);
+                                    if (item == null) return null;
+                                    return SingleProjectWIdget(item: item);
+                                  },
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox.expand(
-                            child: IgnorePointer(
-                              ignoring: true,
-                              child: ColoredBox(
-                                color: Colors.transparent,
-                                child: Column(),
-                              ),
+                        ),
+                        SizedBox.expand(
+                          child: IgnorePointer(
+                            ignoring: true,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                DecoratedBox(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.white,
+                                        Colors.white70,
+                                        Colors.white60,
+                                        Colors.white54,
+                                        Colors.white38,
+                                        Colors.white30,
+                                        Colors.white24,
+                                        Colors.white12,
+                                        Colors.white10,
+                                      ],
+                                    ),
+                                  ),
+                                  child: SizedBox(
+                                    height: constraints.maxHeight * 0.1,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                const Expanded(child: SizedBox()),
+                                DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.white,
+                                        Colors.white70,
+                                        Colors.white60,
+                                        Colors.white54,
+                                        Colors.white38,
+                                        Colors.white30,
+                                        Colors.white24,
+                                        Colors.white12,
+                                        Colors.white10,
+                                      ].reversed.toList(),
+                                    ),
+                                  ),
+                                  child: SizedBox(
+                                    height: constraints.maxHeight * 0.1,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );

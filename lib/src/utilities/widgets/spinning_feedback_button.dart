@@ -16,7 +16,7 @@ class FeedbackButtonWrapper extends StatelessWidget {
         child ?? const SizedBox(),
         Positioned(
           right: 12,
-          top: 12,
+          bottom: 12,
           child: FeedbackButton(
             onPressed: onTap,
           ),
