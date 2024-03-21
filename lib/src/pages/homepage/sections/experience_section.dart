@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:local_hero/local_hero.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/constants/utils/date_utils.dart';
@@ -15,6 +14,7 @@ import 'package:portfolio_mostafij/src/pages/homepage/controllers/flag_state_not
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
+import 'package:portfolio_mostafij/src/utilities/helpers/scroll/pause_whilst_scrolling.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:rive/rive.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -159,28 +159,33 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         children: [
                           ...controller.experienceList
                               .map(
-                                (workExperience) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: WorkExperienceWidget(
-                                    experienceModel: workExperience,
-                                    isSelected: controller
-                                            .selectedWorkExperienceIndex ==
-                                        workExperience.index,
-                                    onSelect: (data) {
-                                      final controller = ref.read(
-                                        workExpProvider.notifier,
-                                      );
-                                      controller.onExperienceSelect(data);
-                                    },
-                                    onHover: (state, data) async {
-                                      final controller = ref.read(
-                                        workExpProvider.notifier,
-                                      );
-                                      controller.onExperienceSelect(data);
-                                    },
-                                  )
-                                      .animate()
-                                      .slideY(duration: _initialDuration),
+                                (workExperience) => PausedWhilstScrolling(
+                                  child: Builder(builder: (context) {
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: WorkExperienceWidget(
+                                        experienceModel: workExperience,
+                                        isSelected: controller
+                                                .selectedWorkExperienceIndex ==
+                                            workExperience.index,
+                                        onSelect: (data) {
+                                          final controller = ref.read(
+                                            workExpProvider.notifier,
+                                          );
+                                          controller.onExperienceSelect(data);
+                                        },
+                                        onHover: (state, data) async {
+                                          final controller = ref.read(
+                                            workExpProvider.notifier,
+                                          );
+                                          controller.onExperienceSelect(data);
+                                        },
+                                      )
+                                          .animate()
+                                          .slideY(duration: _initialDuration),
+                                    );
+                                  }),
                                 ),
                               )
                               .toList(),
@@ -298,16 +303,13 @@ class WorkExperienceWidget extends StatelessWidget {
         hoverColor: Colors.grey.shade200,
         onTap: isSelected ? null : () => onSelect(experienceModel),
         onHover: (value) => onHover(value, experienceModel),
-        child: LocalHeroScope(
+        child: AnimatedSize(
           duration: Durations.medium2,
-          child: AnimatedSize(
-            duration: Durations.medium2,
-            child: Padding(
-              padding: all16,
-              child: isSelected
-                  ? ExpandedExperienceTile(experienceModel: experienceModel)
-                  : CollapsedExperienceTile(experienceModel: experienceModel),
-            ),
+          child: Padding(
+            padding: all16,
+            child: isSelected
+                ? ExpandedExperienceTile(experienceModel: experienceModel)
+                : CollapsedExperienceTile(experienceModel: experienceModel),
           ),
         ),
       ),
@@ -330,30 +332,24 @@ class ExpandedExperienceTile extends StatelessWidget {
         12.height,
         Align(
           alignment: Alignment.centerLeft,
-          child: LocalHero(
-            tag: "#COMPANY_ICON_${experienceModel.index}",
-            child: SizedBox.square(
-              dimension: 32,
-              child: Image.asset("assets/icons/company.png"),
-            ),
+          child: SizedBox.square(
+            dimension: 32,
+            child: Image.asset("assets/icons/company.png"),
           ),
         ),
         6.height,
         Row(
           children: [
-            LocalHero(
-              tag: "#COMPANY_NAME_${experienceModel.index}",
-              child: Text(
-                experienceModel.company.name,
-                style: context.text.titleLarge?.merge(
-                  GoogleFonts.sansita(
-                    decorationThickness: 0.3,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.dashed,
-                  ),
+            Text(
+              experienceModel.company.name,
+              style: context.text.titleLarge?.merge(
+                GoogleFonts.sansita(
+                  decorationThickness: 0.3,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.dashed,
                 ),
               ),
-            ),
+            ).animate().fadeIn(),
             3.width,
             IconButton(
               iconSize: 16,
@@ -413,28 +409,22 @@ class CollapsedExperienceTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  LocalHero(
-                    tag: "#COMPANY_ICON_${experienceModel.index}",
-                    child: SizedBox.square(
-                      dimension: 24,
-                      child: Image.asset("assets/icons/company.png"),
-                    ),
+                  SizedBox.square(
+                    dimension: 24,
+                    child: Image.asset("assets/icons/company.png"),
                   ),
                   12.width,
                   Expanded(
-                    child: LocalHero(
-                      tag: "#COMPANY_NAME_${experienceModel.index}",
-                      child: Text(
-                        experienceModel.company.name,
-                        style: context.text.titleLarge?.merge(
-                          GoogleFonts.sansita(
-                            decorationThickness: 0.3,
-                            decoration: TextDecoration.underline,
-                            decorationStyle: TextDecorationStyle.dashed,
-                          ),
+                    child: Text(
+                      experienceModel.company.name,
+                      style: context.text.titleLarge?.merge(
+                        GoogleFonts.sansita(
+                          decorationThickness: 0.3,
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.dashed,
                         ),
                       ),
-                    ),
+                    ).animate().fadeIn(),
                   ),
                 ],
               ),
