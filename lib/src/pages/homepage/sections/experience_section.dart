@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'package:portfolio_mostafij/src/constants/assets/assets.dart';
+import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/constants/utils/date_utils.dart';
@@ -16,8 +19,6 @@ import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/helpers/scroll/pause_whilst_scrolling.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
-import 'package:rive/rive.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final _initialDuration = 800.ms;
 
@@ -98,9 +99,7 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
                     horizontalWind?.value = next.verticalWind.toDouble();
                   },
                 );
-                return Rive(
-                  artboard: artboard!,
-                );
+                return Rive(artboard: artboard!);
               },
             ),
     );
@@ -334,7 +333,7 @@ class ExpandedExperienceTile extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: SizedBox.square(
             dimension: 32,
-            child: Image.asset("assets/icons/company.png"),
+            child: Image.asset(IconAssets.companyPng),
           ),
         ),
         6.height,
@@ -411,7 +410,7 @@ class CollapsedExperienceTile extends StatelessWidget {
                 children: [
                   SizedBox.square(
                     dimension: 24,
-                    child: Image.asset("assets/icons/company.png"),
+                    child: Image.asset(IconAssets.companyPng),
                   ),
                   12.width,
                   Expanded(

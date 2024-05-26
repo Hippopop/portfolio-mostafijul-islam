@@ -2,13 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
+import 'package:portfolio_mostafij/src/data/models/project_structure/project_structure.dart';
+import 'package:portfolio_mostafij/src/pages/homepage/controllers/my_projects_provider.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/colors_theme.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/list_extensions.dart';
+import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key});
@@ -20,15 +25,6 @@ class ProjectsSection extends StatefulWidget {
 class _ProjectsSectionState extends State<ProjectsSection> {
   late final Timer _autoScrollTimer;
   late final ScrollController _scrollController;
-
-  final _imageList = [
-    "https://images.unsplash.com/photo-1707949576610-a373542c77df?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1707968781621-db823bedc3d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1707985664665-b09c7c876ed7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2NHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1708006252090-e5db494aa373?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5OHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1707912079134-becf5a3598e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDN8fHxlbnwwfHx8fHw%3D",
-    "https://images.unsplash.com/photo-1706530664711-ad4704cd27f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMjh8fHxlbnwwfHx8fHw%3D",
-  ];
 
   @override
   void initState() {
@@ -125,22 +121,27 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                                   : Matrix4.skew(0.3, -0),
                               child: Padding(
                                 padding: horizontal16,
-                                child: GridView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 12,
-                                    mainAxisSpacing: 12,
-                                  ),
-                                  controller: _scrollController,
-                                  itemBuilder: (context, index) {
-                                    final item =
-                                        _imageList.rotatedIndexedItem(index);
-                                    if (item == null) return null;
-                                    return SingleProjectWIdget(item: item);
-                                  },
-                                ),
+                                child: Consumer(builder: (context, ref, _) {
+                                  final projectList =
+                                      ref.read(myProjectsProvider);
+                                  return GridView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 12,
+                                      mainAxisSpacing: 12,
+                                    ),
+                                    controller: _scrollController,
+                                    itemBuilder: (context, index) {
+                                      final item =
+                                          projectList.rotatedIndexedItem(index);
+                                      if (item == null) return null;
+                                      return SingleProjectWIdget(item: item);
+                                    },
+                                  );
+                                }),
                               ),
                             ),
                           ),
@@ -221,7 +222,7 @@ class SingleProjectWIdget extends StatefulWidget {
     required this.item,
   });
 
-  final String item;
+  final ProjectStructure item;
 
   @override
   State<SingleProjectWIdget> createState() => _SingleProjectWIdgetState();
@@ -268,13 +269,14 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                       child: Center(
                         child: IntrinsicWidth(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              4.height,
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 3),
                                 child: Text(
-                                  "Project Name",
+                                  widget.item.projectName,
                                   textAlign: TextAlign.center,
                                   style: context.text.bodyLarge?.merge(
                                     GoogleFonts.poppins(
@@ -288,6 +290,58 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: horizontal12,
+                                child: Text(
+                                  widget.item.shortDescription,
+                                  textAlign: TextAlign.center,
+                                  style: context.text.bodySmall?.copyWith(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ),
+                              Wrap(
+                                spacing: 8,
+                                children: [
+                                  for (var link in widget.item.links)
+                                    Theme(
+                                      data: context.theme.copyWith(
+                                        useMaterial3: true,
+                                      ),
+                                      child: IconButton(
+                                        hoverColor: Colors.white24,
+                                        onPressed: () => launchUrl(
+                                          Uri.parse(link.link),
+                                        ),
+                                        icon: SizedBox.square(
+                                          dimension: 20,
+                                          child: Image.asset(
+                                            link.store.icon,
+                                            color: context.color.theme,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Tap for more details",
+                                    style: context.text.bodySmall?.copyWith(
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                  3.width,
+                                  Icon(
+                                    Icons.keyboard_double_arrow_right_rounded,
+                                    size: 18,
+                                    color: Colors.white70,
+                                  ),
+                                ],
+                              ),
+                              4.height,
                             ],
                           ),
                         ),
@@ -302,7 +356,7 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
         child: SizedBox.square(
           dimension: 350,
           child: Image.network(
-            widget.item,
+            widget.item.coverPic,
             fit: BoxFit.cover,
           ),
         ),
