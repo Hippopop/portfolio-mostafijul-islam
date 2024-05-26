@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-final _reg = RegExp(r'<[^>]*>|&[^;]+;', multiLine: true, caseSensitive: true);
+final _htmlDetectReg = RegExp(
+  r'<[^>]*>|&[^;]+;',
+  multiLine: true,
+  caseSensitive: true,
+);
 
 extension StringHelperExtensions on String {
-  String get withoutHtml => replaceAll(_reg, " ");
+  String get withoutHtml => replaceAll(_htmlDetectReg, " ");
 
   String get upperCaseFirst {
     if (isEmpty) return this;
