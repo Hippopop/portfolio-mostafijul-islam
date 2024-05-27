@@ -40,7 +40,10 @@ class _SectionButtonState extends State<SectionButton> {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 3),
-                  child: Text(widget.text),
+                  child: Text(
+                    widget.text,
+                    maxLines: 1,
+                  ),
                 ),
               ),
               AnimatedSize(
