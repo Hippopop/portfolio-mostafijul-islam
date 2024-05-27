@@ -103,24 +103,5 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
       projectName: "SoCook",
       screenshots: [],
     ),
-    ProjectStructure(
-      shortDescription: "",
-      coverPic:
-          "https://images.unsplash.com/photo-1706530664711-ad4704cd27f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMjh8fHxlbnwwfHx8fHw%3D",
-      links: [
-        (
-          link:
-              "https://play.google.com/store/apps/details?id=com.mowe.socook&hl=en&gl=US",
-          store: ProjectPublishSpace.android,
-        ),
-        (
-          link: "https://socook.co.uk/",
-          store: ProjectPublishSpace.web,
-        ),
-      ],
-      projectDetails: "",
-      projectName: "Project Name",
-      screenshots: [],
-    ),
   ];
 });
