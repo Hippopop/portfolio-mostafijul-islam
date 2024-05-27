@@ -46,7 +46,7 @@ class TopNavigationBarSection extends StatelessWidget {
                     const Spacer(),
                     if (context.responsiveState > ResponsiveState.sm)
                       LimitedBox(
-                        maxWidth: 450,
+                        maxWidth: 500,
                         child: Row(
                           children: sections
                               .map(
