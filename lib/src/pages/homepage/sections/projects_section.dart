@@ -125,8 +125,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                                   final projectList =
                                       ref.read(myProjectsProvider);
                                   return GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    // physics:
+                                    //     const NeverScrollableScrollPhysics(),
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
