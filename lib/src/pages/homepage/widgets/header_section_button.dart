@@ -27,8 +27,8 @@ class _SectionButtonState extends State<SectionButton> {
         });
       },
       style: TextButton.styleFrom(
-        textStyle: GoogleFonts.raleway(),
-      ),
+          // textStyle: GoogleFonts.raleway(),
+          ),
       onPressed: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.all(4.0),
