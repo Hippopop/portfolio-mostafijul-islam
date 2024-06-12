@@ -31,7 +31,7 @@ class TextWithStyle extends TextPart {
 
 const List<TextPart> _defaultTextParts = [
   TextWithStyle(
-    text: "🚧",
+    text: "🏃🏻‍♂️ 🚧 ",
     style: TextStyle(),
   ),
   TextWithColor(
