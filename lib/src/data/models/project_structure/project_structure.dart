@@ -11,6 +11,10 @@ enum ProjectPublishSpace {
     storeName: "Web",
     icon: IconAssets.webPng,
   ),
+  github(
+    storeName: "GitHub",
+    icon: IconAssets.githubPng,
+  ),
   iOs(
     storeName: "iOs",
     icon: IconAssets.iosPng,
