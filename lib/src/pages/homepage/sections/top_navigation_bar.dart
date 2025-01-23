@@ -36,7 +36,7 @@ class TopNavigationBarSection extends StatelessWidget {
                     12.width,
                     SizedBox.square(
                       dimension: 32,
-                      child: Image.asset("images/logo.png"),
+                      child: Image.asset("assets/images/logo.png"),
                     ),
                     8.width,
                     FittedBox(
