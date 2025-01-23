@@ -70,9 +70,8 @@ final lightTheme = ThemeData(
       foregroundColor: _theme,
       backgroundColor: _mainAccent,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
-      textStyle: const TextStyle(
+      textStyle: GoogleFonts.poppins(
         fontSize: 16,
-        fontWeight: FontWeight.w600,
       ),
     ),
   ),
