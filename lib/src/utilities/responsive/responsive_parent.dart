@@ -147,6 +147,13 @@ class _ResponsiveParentWrapperState extends State<ResponsiveParentWrapper> {
   ValueNotifier<ResponsiveState?> currentState = ValueNotifier(null);
 
   @override
+  void didUpdateWidget(covariant ResponsiveParentWrapper oldWidget) {
+    child = widget.builder(context, currentState.value!);
+    super.didUpdateWidget(ResponsiveParentWrapper(builder: widget.builder));
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {

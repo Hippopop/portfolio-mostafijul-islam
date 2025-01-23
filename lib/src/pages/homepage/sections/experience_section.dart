@@ -43,13 +43,17 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        _initializeArtboard().then((value) => setState(() {})).onError(
-              (error, stackTrace) => log(
-                "Error from ExperienceSection(_initializeArtboard)",
-                error: error,
-                stackTrace: stackTrace,
-              ),
-            );
+        _initializeArtboard().then((value) async {
+          if (context.mounted) {
+            return setState(() {});
+          }
+        }).onError(
+          (error, stackTrace) => log(
+            "Error from ExperienceSection(_initializeArtboard)",
+            error: error,
+            stackTrace: stackTrace,
+          ),
+        );
       },
     );
   }
@@ -163,34 +167,32 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         children: [
                           ...controller.experienceList
                               .map(
-                                (workExperience) => PausedWhilstScrolling(
-                                  child: Builder(builder: (context) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8.0),
-                                      child: WorkExperienceWidget(
-                                        experienceModel: workExperience,
-                                        isSelected: controller
-                                                .selectedWorkExperienceIndex ==
-                                            workExperience.index,
-                                        onSelect: (data) {
-                                          final controller = ref.read(
-                                            workExpProvider.notifier,
-                                          );
-                                          controller.onExperienceSelect(data);
-                                        },
-                                        onHover: (state, data) async {
-                                          final controller = ref.read(
-                                            workExpProvider.notifier,
-                                          );
-                                          controller.onExperienceSelect(data);
-                                        },
-                                      )
-                                          .animate()
-                                          .slideY(duration: _initialDuration),
-                                    );
-                                  }),
-                                ),
+                                (workExperience) => Builder(builder: (context) {
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 8.0),
+                                    child: WorkExperienceWidget(
+                                      experienceModel: workExperience,
+                                      isSelected: controller
+                                              .selectedWorkExperienceIndex ==
+                                          workExperience.index,
+                                      onSelect: (data) {
+                                        final controller = ref.read(
+                                          workExpProvider.notifier,
+                                        );
+                                        controller.onExperienceSelect(data);
+                                      },
+                                      onHover: (state, data) async {
+                                        final controller = ref.read(
+                                          workExpProvider.notifier,
+                                        );
+                                        controller.onExperienceSelect(data);
+                                      },
+                                    )
+                                        .animate()
+                                        .slideY(duration: _initialDuration),
+                                  );
+                                }),
                               )
                               .toList(),
                         ],
@@ -381,12 +383,10 @@ class ExpandedExperienceTile extends StatelessWidget {
             4.width,
             Text(
               "(${(experienceModel.company.endDate ?? DateTime.now()).difference(experienceModel.company.startDate).adaptiveDurationString})",
-              style: context.text.bodyLarge?.merge(
-                GoogleFonts.roboto(
-                  color: context.color.primary,
-                  decorationThickness: 0.3,
-                  fontWeight: FontWeight.w300,
-                ),
+              style: GoogleFonts.roboto(
+                color: context.color.primary,
+                decorationThickness: 0.3,
+                fontWeight: FontWeight.w300,
               ),
             )
           ],
@@ -444,11 +444,9 @@ class CollapsedExperienceTile extends StatelessWidget {
                     child: Text(
                       experienceModel.positionList.firstOrNull?.name ??
                           "Flutter Developer",
-                      style: context.text.bodyLarge?.merge(
-                        GoogleFonts.roboto(
-                          decorationThickness: 0.3,
-                          fontWeight: FontWeight.w300,
-                        ),
+                      style: GoogleFonts.roboto(
+                        decorationThickness: 0.3,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   ),
@@ -473,12 +471,10 @@ class CollapsedExperienceTile extends StatelessWidget {
               (experienceModel.company.endDate ?? DateTime.now())
                   .difference(experienceModel.company.startDate)
                   .adaptiveDurationString,
-              style: context.text.bodyLarge?.merge(
-                GoogleFonts.roboto(
-                  color: context.color.primary,
-                  decorationThickness: 0.3,
-                  fontWeight: FontWeight.w300,
-                ),
+              style: GoogleFonts.roboto(
+                color: context.color.primary,
+                decorationThickness: 0.3,
+                fontWeight: FontWeight.w300,
               ),
             ),
           ],
