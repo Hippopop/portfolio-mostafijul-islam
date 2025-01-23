@@ -25,13 +25,13 @@ import 'package:flutter/material.dart';
 enum ResponsiveState implements Comparable<ResponsiveState> {
   ts(
     min: 0,
-    max: 360,
+    max: 380,
     bodyMargin: 8,
     layoutColumn: 4,
     bodyWidth: null,
   ),
   xs(
-    min: 361,
+    min: 381,
     max: 600,
     bodyMargin: 16,
     layoutColumn: 4,

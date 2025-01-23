@@ -51,12 +51,14 @@ class HeroSection extends StatelessWidget {
             _ => IntrinsicHeight(
                 child: Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        72.height,
-                        const HeroDetailsSection(),
-                      ],
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          72.height,
+                          const HeroDetailsSection(),
+                        ],
+                      ),
                     ),
                     4.width,
                     Expanded(
@@ -112,24 +114,20 @@ class HeroDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: ResponsiveState.ts.max,
-        minWidth: ResponsiveState.ts.min,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          RichText(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: ResponsiveState.ts.max,
+            minWidth: ResponsiveState.ts.min,
+          ),
+          child: RichText(
             softWrap: true,
             text: TextSpan(
-              text: "Hello! \u{1F44B}\nI'm ",
-              style: context.text.headlineMedium?.merge(
-                GoogleFonts.sofia(
-                  color: context.color.opposite,
-                ),
-              ),
+              text: "Hello!\nI'm ",
+              style: context.text.titleMedium,
               children: [
                 WidgetSpan(child: 60.height),
                 TextSpan(
@@ -149,44 +147,44 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "I'm a ",
-                  style: context.text.headlineMedium?.merge(
-                    GoogleFonts.sofia(
-                      color: context.color.opposite,
-                    ),
-                  ),
+                  style: context.text.titleMedium,
                 ),
                 WidgetSpan(
-                  child: Text(
-                    "Flutter Developer",
-                    style: context.text.headlineMedium!.merge(
-                      GoogleFonts.sofia(
-                        fontWeight: FontWeight.bold,
-                        color: context.color.opposite,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "Software Developer",
+                      style: context.text.headlineMedium!.merge(
+                        GoogleFonts.sourceSans3(
+                          height: 1,
+                          fontWeight: FontWeight.bold,
+                          color: context.color.opposite,
+                        ),
                       ),
+                    )
+                        .animate(
+                      onPlay: (controller) => controller.repeat(),
+                      delay: 5.seconds,
+                    )
+                        .shimmer(
+                      curve: Curves.ease,
+                      duration: 10.seconds,
+                      colors: [
+                        Colors.blue,
+                        Colors.blue.shade300,
+                        Colors.grey.shade400,
+                        Colors.grey,
+                        Colors.grey.shade300,
+                        Colors.blue.shade300,
+                        ...List.generate(10, (index) => Colors.blue),
+                        Colors.blue.shade300,
+                        Colors.grey.shade400,
+                        Colors.grey,
+                        Colors.grey.shade300,
+                        Colors.blue.shade300,
+                        Colors.blue,
+                      ],
                     ),
-                  )
-                      .animate(
-                    onPlay: (controller) => controller.repeat(),
-                    delay: 5.seconds,
-                  )
-                      .shimmer(
-                    curve: Curves.ease,
-                    duration: 10.seconds,
-                    colors: [
-                      Colors.blue,
-                      Colors.blue.shade300,
-                      Colors.grey.shade400,
-                      Colors.grey,
-                      Colors.grey.shade300,
-                      Colors.blue.shade300,
-                      ...List.generate(10, (index) => Colors.blue),
-                      Colors.blue.shade300,
-                      Colors.grey.shade400,
-                      Colors.grey,
-                      Colors.grey.shade300,
-                      Colors.blue.shade300,
-                      Colors.blue,
-                    ],
                   ),
                 ),
                 const TextSpan(
@@ -195,87 +193,118 @@ class HeroDetailsSection extends StatelessWidget {
               ],
             ),
           ).animate().fadeIn(duration: _initialDuration).slide(),
-          18.height,
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
+        ),
+        18.height,
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  "I build cross-platform apps using Flutter. But just like Flutter I specialize at building Mobile apps. Basically Android & iOS.",
+                RichText(
+                  text: TextSpan(
+                    text: "I specialize in crafting seamless ",
+                    style: context.text.bodyMedium?.merge(
+                      TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: context.color.secondaryText,
+                      ),
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "cross-platform mobile apps",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: context.color.mainAccent,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            " using Flutter, focusing on Android and iOS. With additional experience in ",
+                      ),
+                      TextSpan(
+                        text: "full-stack development",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: context.color.mainAccent,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            " using Node.js, I bring a holistic approach to building scalable and impactful applications.",
+                      ),
+                    ],
+                  ),
                   softWrap: true,
                   maxLines: 100,
                   overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    color: context.color.secondaryText,
+                ).animate().fadeIn(duration: _initialDuration).slide(),
+                12.height,
+                Text(
+                  "(*whisper) Did you know this portfolio is made with Flutter too.",
+                  softWrap: true,
+                  maxLines: 100,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.text.bodyMedium?.merge(
+                    TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: context.color.secondaryText,
+                    ),
                   ),
                 ).animate().fadeIn(duration: _initialDuration).slide(),
-                /*  12.height,
-                Text(
-                  "(*whisper) Did you know this portfolio is made with Flutter too. Isn't it amazing?!? Also it gives you the best experience in a mouse controlled environment. With a large computer screen.",
-                  softWrap: true,
-                  maxLines: 100,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300,
-                    color: context.color.secondaryText,
-                  ),
-                ).animate().fadeIn(duration: _initialDuration).slide(), */
               ],
             ),
           ),
-          12.height,
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 320),
-            child: IntrinsicHeight(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(),
-                      onPressed: () {
-                        launchUrl(Uri.parse("mailto:mostafijul929@gmail.com"));
-                      },
-                      icon: Icon(
-                        Icons.call_outlined,
-                        size: 18,
-                        color: context.color.opposite,
-                      ),
-                      label: Padding(
-                        padding: vertical12 + horizontal3,
-                        child: const Text("Contact"),
-                      ),
+        ),
+        24.height,
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 320),
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    style: OutlinedButton.styleFrom(),
+                    onPressed: () {
+                      launchUrl(Uri.parse("mailto:mostafijul929@gmail.com"));
+                    },
+                    icon: Icon(
+                      Icons.mail_outline_rounded,
+                      size: 18,
+                    ),
+                    label: Padding(
+                      padding: vertical12 + horizontal3,
+                      child: const Text("Contact"),
                     ),
                   ),
-                  8.width,
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(),
-                      onPressed: () {
-                        launchUrl(
-                          Uri.parse(
-                            "https://drive.google.com/file/d/10dqBPqVrJqC_cINbWBThTJmVJLh7uqG4/view?usp=drive_link",
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.file_download_outlined,
-                        size: 18,
-                        color: context.color.opposite,
-                      ),
-                      label: Padding(
-                        padding: vertical12 + horizontal3,
-                        child: const Text("Resume"),
-                      ),
+                ),
+                8.width,
+                Expanded(
+                  child: ElevatedButton.icon(
+                    style: OutlinedButton.styleFrom(),
+                    onPressed: () {
+                      launchUrl(
+                        Uri.parse(
+                          "https://drive.google.com/file/d/10dqBPqVrJqC_cINbWBThTJmVJLh7uqG4/view?usp=drive_link",
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.file_download_outlined,
+                      size: 18,
+                    ),
+                    label: Padding(
+                      padding: vertical12 + horizontal3,
+                      child: const Text("Resume"),
                     ),
                   ),
-                ],
-              ).animate().fadeIn(duration: _initialDuration).slide(),
-            ),
+                ),
+              ],
+            ).animate().fadeIn(duration: _initialDuration).slide(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

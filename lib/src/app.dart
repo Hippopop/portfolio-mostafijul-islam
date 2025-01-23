@@ -20,13 +20,11 @@ class App extends ConsumerWidget {
       theme: themeState.currentTheme,
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
-        return UnderConstructionWarningWrapper(
-          child: FeedbackButtonWrapper(
-            child: child,
-            onTap: () => launchUrl(
-              Uri.parse(
-                "https://github.com/Hippopop/portfolio-mostafijul-islam/issues",
-              ),
+        return FeedbackButtonWrapper(
+          child: child,
+          onTap: () => launchUrl(
+            Uri.parse(
+              "https://github.com/Hippopop/portfolio-mostafijul-islam/issues",
             ),
           ),
         );

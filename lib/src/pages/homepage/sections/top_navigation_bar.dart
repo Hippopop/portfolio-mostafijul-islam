@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
+import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 
 import '../widgets/header_section_button.dart';
@@ -11,11 +13,9 @@ class TopNavigationBarSection extends StatelessWidget {
   });
 
   final List<String> sections = const [
-    "Home",
     "About",
     "Tools",
     "Projects",
-    "Blog",
   ];
 
   @override
@@ -24,7 +24,7 @@ class TopNavigationBarSection extends StatelessWidget {
       valueListenable: context.responsiveStateListener,
       builder: (context, responsiveState, child) {
         return ColoredBox(
-          color: context.color.mainBackground.withOpacity(0.3),
+          color: context.color.mainBackground.withValues(alpha: 0.3),
           child: SafeArea(
             child: SizedBox(
               height: 60,
@@ -33,6 +33,12 @@ class TopNavigationBarSection extends StatelessWidget {
                 state: context.responsiveState,
                 child: Row(
                   children: [
+                    12.width,
+                    SizedBox.square(
+                      dimension: 32,
+                      child: Image.asset("images/logo.png"),
+                    ),
+                    8.width,
                     FittedBox(
                       child: Text(
                         "Mostafij",
@@ -43,14 +49,14 @@ class TopNavigationBarSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Spacer(),
-                    if (context.responsiveState > ResponsiveState.sm)
-                      LimitedBox(
-                        maxWidth: 450,
+                    if (context.responsiveState >= ResponsiveState.sm)
+                      Expanded(
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: sections
                               .map(
-                                (e) => Expanded(
+                                (e) => Padding(
+                                  padding: horizontal10,
                                   child: SectionButton(
                                     text: e,
                                     onTap: () {},
