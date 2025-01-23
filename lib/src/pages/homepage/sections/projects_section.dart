@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -82,6 +83,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 ),
               ),
             ),
+            24.height,
             SizedBox(
               height: 600,
               width: double.infinity,
@@ -101,7 +103,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                       fit: StackFit.passthrough,
                       children: [
                         GestureDetector(
-                          onTap: () => print("Tapped On Project Background!"),
+                          onTap: () => log("Tapped On Project Background!"),
                           child: SizedBox.expand(
                             child: Image.network(
                               "https://images.unsplash.com/photo-1620646233562-f2a31ad24425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHN0YXJyeSUyMHNreXxlbnwwfHwwfHx8MA%3D%3D",

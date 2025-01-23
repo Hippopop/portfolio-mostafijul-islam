@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/sections/projects_section.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
-import 'package:portfolio_mostafij/src/utilities/helpers/scroll/smooth_scroll_controller.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 
 import 'sections/experience_section.dart';
@@ -20,12 +19,7 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       body: ResponsiveParentWrapper(
         builder: (context, currentState) {
-          return const Column(
-            children: [
-              TopNavigationBarSection(),
-              Expanded(child: BodySection()),
-            ],
-          );
+          return const BodySection();
         },
       ),
     );
@@ -70,26 +64,25 @@ class _BodySectionState extends State<BodySection> {
         }
         return true;
       },
-      child: SingleChildScrollView(
-        // controller: controller,
-        child: Column(
-          children: [
-            const HeroSection(),
-            32.height,
-            const SkillsSection(),
-            32.height,
-            IgnorePointer(
-              ignoring: !_canPoint,
-              child: const ExperienceSection(),
-            ),
-            32.height,
-            IgnorePointer(
-              ignoring: !_canPoint,
-              child: const ProjectsSection(),
-            ),
-            200.height,
-          ],
-        ),
+      child: CustomScrollView(
+        slivers: [
+          const TopNavigationBarSection(),
+          32.height,
+          const HeroSection(),
+          64.height,
+          const SkillsSection(),
+          64.height,
+          IgnorePointer(
+            ignoring: !_canPoint,
+            child: const ExperienceSection(),
+          ),
+          64.height,
+          IgnorePointer(
+            ignoring: !_canPoint,
+            child: const ProjectsSection(),
+          ),
+          200.height,
+        ].map((e) => SliverToBoxAdapter(child: e)).toList(),
       ),
     );
   }

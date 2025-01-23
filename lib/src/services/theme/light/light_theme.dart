@@ -3,15 +3,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../extensions/colors_theme.dart';
 
+// Primary Colors
+const Color _primaryColor = Color(0xFF1A73E8);
+const Color _mainSupport = Color(0xFF174EA6);
+const Color _primaryAccent = Color(0xFF00897B);
+
+// Secondary Colors
+
+// Neutral Colors
+const Color _backgroundColor = Color(0xFFECEFF1);
+const Color _extraColor = Color(0xFF4A4A4A);
+
+// Accent Colors
+const Color _secondaryAccent = Color(0xFFF57C00);
+const Color _mainAccent = Color(0xFFD81B60);
+const Color _secondarySupport = Color(0xFFFF5252);
+
 const _theme = Colors.white;
 const _opposite = Colors.black;
-const _extraColor = Color(0xff767F8C);
-const _mainAccent = Color(0xff0BA02C);
-const _primaryColor = Color(0xff0A65CC);
-const _primaryAccent = Color(0xff042852);
 const _extraTextColor = Color(0xff18191C);
-const _secondaryAccent = Color(0xffE4E5E8);
-const _backgroundColor = Color(0xffEDEFF5);
 
 const lightThemeKey = "#BASE_LIGHT_THEME";
 final lightTheme = ThemeData(
@@ -19,29 +29,16 @@ final lightTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: _primaryColor,
   scaffoldBackgroundColor: _backgroundColor,
-  textTheme: GoogleFonts.interTextTheme(),
-  sliderTheme: SliderThemeData(
-    trackHeight: 8,
-    overlayColor: _theme,
-    thumbColor: _primaryColor,
-    activeTrackColor: _primaryColor,
-    activeTickMarkColor: _primaryColor,
-    overlappingShapeStrokeColor: _primaryColor,
-    inactiveTrackColor: _extraTextColor.withOpacity(0.1),
-  ),
-  appBarTheme: const AppBarTheme(
-    elevation: 1,
-    backgroundColor: _theme,
-    titleTextStyle: TextStyle(
-      color: _extraTextColor,
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
+  textTheme: GoogleFonts.interTextTheme().merge(
+    TextTheme(
+      titleMedium: GoogleFonts.sofia(
+        fontSize: 24,
+        color: _opposite,
+      ),
+      bodyMedium: GoogleFonts.poppins(
+        fontSize: 16,
+      ),
     ),
-    iconTheme: IconThemeData(color: _opposite),
-    actionsIconTheme: IconThemeData(color: _primaryColor),
-  ),
-  iconTheme: const IconThemeData(
-    color: _primaryColor,
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
@@ -53,11 +50,11 @@ final lightTheme = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: _extraTextColor,
-      surfaceTintColor: _primaryColor,
+      foregroundColor: _mainSupport,
+      surfaceTintColor: _mainSupport,
       textStyle: GoogleFonts.roboto(
         color: _extraTextColor,
-        fontWeight: FontWeight.w300,
+        // fontWeight: FontWeight.w300,
       ),
       shape: const StadiumBorder(),
       side: const BorderSide(
@@ -67,47 +64,17 @@ final lightTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: 0,
+      elevation: 2,
+      shape: const StadiumBorder(),
       minimumSize: const Size.fromHeight(40),
       foregroundColor: _theme,
-      backgroundColor: _primaryColor,
+      backgroundColor: _mainAccent,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
       textStyle: const TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
       ),
     ),
-  ),
-  inputDecorationTheme: const InputDecorationTheme(
-    filled: true,
-    isCollapsed: false,
-    fillColor: _theme,
-    border: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: _extraColor,
-      ),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.red,
-      ),
-    ),
-    errorStyle: TextStyle(fontStyle: FontStyle.italic),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        width: 0.5,
-        color: _extraColor,
-      ),
-    ),
-    outlineBorder: BorderSide(),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: _primaryColor,
-      ),
-    ),
-    disabledBorder: OutlineInputBorder(),
-    focusedErrorBorder: OutlineInputBorder(),
-    contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
   ),
   extensions: {
     ColorTheme(
@@ -120,6 +87,8 @@ final lightTheme = ThemeData(
       mainText: _extraTextColor,
       secondaryAccent: _secondaryAccent,
       mainBackground: _backgroundColor,
+      mainSupport: _mainSupport,
+      secondarySupport: _secondarySupport,
     ),
   },
 );

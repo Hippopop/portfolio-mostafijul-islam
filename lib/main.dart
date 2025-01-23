@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_mostafij/src/root/root.dart';
@@ -7,20 +6,17 @@ import 'package:portfolio_mostafij/src/root/root.dart';
 import 'src/root/views/error_screen.dart';
 
 void main() {
+  //* Just an unnecessary(*for this project!) safety layer!
   runZonedGuarded(
-    () async => runApp(
+    () => runApp(
       const ProviderScope(
         child: AppRoot(),
       ),
     ),
-    //*** Just a safety layer!
-    (error, stacktrace) {
-      log("#RootError", error: error, stackTrace: stacktrace);
-      return runApp(
-        ProviderScope(
-          child: RootErrorBody(error: error, stackTrace: stacktrace),
-        ),
-      );
-    },
+    (error, stacktrace) => runApp(
+      ProviderScope(
+        child: RootErrorBody(error: error, stackTrace: stacktrace),
+      ),
+    ),
   );
 }

@@ -18,6 +18,7 @@ final _workExperienceList = [
           "Eu duis cupidatat duis quis veniam fugiat consectetur deserunt aute consectetur occaecat quis. Commodo eu exercitation do officia ipsum eu aute sit est sit. Velit ullamco proident do velit est nisi qui. Ullamco do eiusmod nulla eu officia Lorem quis quis aliquip sit minim et. Ex tempor Lorem est eu quis cillum in aute nisi ullamco ad elit nisi. Sit exercitation incididunt nulla Lorem officia incididunt ex sit aliquip minim labore in aliqua.",
       link: "https://lomeyo.com/",
       startDate: DateTime(2023, 11, 07),
+      endDate: DateTime(2024, 07, 01),
     ),
     positionList: [],
   ),

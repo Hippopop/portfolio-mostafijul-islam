@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/scheduler.dart';
 import 'package:portfolio_mostafij/src/constants/assets/assets.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,17 @@ class _RivePositionFlagState extends ConsumerState<RivePositionFlag> {
   @override
   void initState() {
     super.initState();
-    _initializeArtboard().then((value) => setState(() {})).onError(
-          (error, stackTrace) => log(
-            "Error from ExperienceSection(_initializeArtboard)",
-            error: error,
-            stackTrace: stackTrace,
-          ),
-        );
+    SchedulerBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _initializeArtboard().then((value) => setState(() {})).onError(
+              (error, stackTrace) => log(
+                "Error from ExperienceSection(_initializeArtboard)",
+                error: error,
+                stackTrace: stackTrace,
+              ),
+            );
+      },
+    );
   }
 
   Future<void> _initializeArtboard() async {
@@ -210,6 +215,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       ),
                     ),
                   ),
+                  24.height,
                   IntrinsicHeight(
                     child: Row(
                       children: [
