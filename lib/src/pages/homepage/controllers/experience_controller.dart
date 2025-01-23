@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/company_details/company_details.dart';
+import 'package:portfolio_mostafij/src/data/models/work_experience/position_model/position_model.dart';
 import 'package:portfolio_mostafij/src/data/models/work_experience/work_experience_model/work_experience_model.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/models/work_experience_state/work_experience_state.dart';
 
@@ -20,7 +21,15 @@ final _workExperienceList = [
       startDate: DateTime(2023, 11, 07),
       endDate: DateTime(2024, 07, 01),
     ),
-    positionList: [],
+    positionList: [
+      PositionModel(
+        name: "Lead Mobile Application Developer",
+        description: "",
+        endDate: DateTime.now(),
+        startDate: DateTime.now(),
+        tools: [],
+      ),
+    ],
   ),
   WorkExperienceModel(
     index: 2,
@@ -36,7 +45,15 @@ final _workExperienceList = [
       startDate: DateTime(2023, 05, 01),
       endDate: DateTime(2023, 12, 31),
     ),
-    positionList: [],
+    positionList: [
+      PositionModel(
+        name: "Lead Mobile Application Developer",
+        description: "",
+        endDate: DateTime.now(),
+        startDate: DateTime.now(),
+        tools: [],
+      ),
+    ],
   ),
   WorkExperienceModel(
     index: 3,
@@ -52,7 +69,15 @@ final _workExperienceList = [
       startDate: DateTime(2022, 03, 01),
       endDate: DateTime(2023, 09, 30),
     ),
-    positionList: [],
+    positionList: [
+      PositionModel(
+        name: "Lead Flutter Developer",
+        description: "",
+        endDate: DateTime.now(),
+        startDate: DateTime.now(),
+        tools: [],
+      ),
+    ],
   ),
 ];
 

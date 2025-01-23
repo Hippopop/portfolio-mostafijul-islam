@@ -17,10 +17,27 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ResponsiveParentWrapper(
-        builder: (context, currentState) {
-          return const BodySection();
-        },
+      body: Stack(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFFFFDEE9).withAlpha(50),
+                  const Color(0xFFB5FFFC).withAlpha(50),
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+              ),
+            ),
+            child: const SizedBox.expand(),
+          ),
+          ResponsiveParentWrapper(
+            builder: (context, currentState) {
+              return const BodySection();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -36,8 +53,7 @@ class BodySection extends StatefulWidget {
 }
 
 class _BodySectionState extends State<BodySection> {
-  bool _canPoint = true;
-  Timer? _debounceTimer;
+  late final _controller = ScrollController();
 
   @override
   void dispose() {
@@ -45,6 +61,8 @@ class _BodySectionState extends State<BodySection> {
     super.dispose();
   }
 
+  bool _canPoint = true;
+  Timer? _debounceTimer;
   _debounceSetFunction() {
     _debounceTimer = Timer.periodic(500.milliseconds, (tick) {
       setState(() => _canPoint = true);
@@ -52,6 +70,14 @@ class _BodySectionState extends State<BodySection> {
       _debounceTimer = null;
     });
   }
+
+  final _allItems = [
+    (label: "Home", key: GlobalKey()),
+    (label: "Tools", key: GlobalKey()),
+    (label: "Experiences", key: GlobalKey()),
+    (label: "Projects", key: GlobalKey()),
+    (label: "About", key: GlobalKey()),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +91,25 @@ class _BodySectionState extends State<BodySection> {
         return true;
       },
       child: CustomScrollView(
+        controller: _controller,
         slivers: [
-          const TopNavigationBarSection(),
+          // SliverAppBar(
+          //   pinned: true,
+          //   toolbarHeight: 100,
+          //   flexibleSpace: TopNavigationBarSection(sections: _allItems),
+          //   forceMaterialTransparency: true,
+          // ),
+          CustomSliverAppBar(sections: _allItems),
           32.height,
           const HeroSection(),
+          32.height,
           64.height,
-          const SkillsSection(),
+          IgnorePointer(
+            ignoring: !_canPoint,
+            child: SkillsSection(
+              key: _allItems[1].key,
+            ),
+          ),
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
@@ -79,10 +118,15 @@ class _BodySectionState extends State<BodySection> {
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
-            child: const ProjectsSection(),
+            child: ProjectSection(
+              key: _allItems[2].key,
+            ),
           ),
           200.height,
-        ].map((e) => SliverToBoxAdapter(child: e)).toList(),
+        ]
+            .indexed
+            .map((e) => e.$1 == 0 ? e.$2 : SliverToBoxAdapter(child: e.$2))
+            .toList(),
       ),
     );
   }

@@ -29,6 +29,12 @@ final lightTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: _primaryColor,
   scaffoldBackgroundColor: _backgroundColor,
+  actionIconTheme: ActionIconThemeData(
+    drawerButtonIconBuilder: (context) => Icon(
+      Icons.menu,
+      color: _opposite,
+    ),
+  ),
   textTheme: GoogleFonts.interTextTheme().merge(
     TextTheme(
       titleMedium: GoogleFonts.sofia(

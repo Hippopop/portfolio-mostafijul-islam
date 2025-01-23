@@ -16,14 +16,49 @@ import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart'
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProjectsSection extends StatefulWidget {
-  const ProjectsSection({super.key});
+class ProjectSection extends StatelessWidget {
+  const ProjectSection({super.key});
 
   @override
-  State<ProjectsSection> createState() => _ProjectsSectionState();
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: context.responsiveStateListener,
+      builder: (_, __, ___) => MaterialTwoSpecificationWrapper(
+        state: context.responsiveState,
+        child: Column(
+          children: [
+            Padding(
+              padding: vertical16,
+              child: Center(
+                child: Text(
+                  "· My Projects ·",
+                  style: context.text.headlineMedium?.merge(
+                    GoogleFonts.sofia(
+                      color: context.color.opposite,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            24.height,
+            // const NetflixStyleProjectsSection(),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class _ProjectsSectionState extends State<ProjectsSection> {
+class NetflixStyleProjectsSection extends StatefulWidget {
+  const NetflixStyleProjectsSection({super.key});
+
+  @override
+  State<NetflixStyleProjectsSection> createState() =>
+      _NetflixStyleProjectsSectionState();
+}
+
+class _NetflixStyleProjectsSectionState
+    extends State<NetflixStyleProjectsSection> {
   late final Timer _autoScrollTimer;
   late final ScrollController _scrollController;
 
@@ -64,156 +99,129 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: context.responsiveStateListener,
-      builder: (_, __, ___) => MaterialTwoSpecificationWrapper(
-        state: context.responsiveState,
-        child: Column(
-          children: [
-            Padding(
-              padding: vertical16,
-              child: Center(
-                child: Text(
-                  "· My Projects ·",
-                  style: context.text.headlineMedium?.merge(
-                    GoogleFonts.sofia(
-                      color: context.color.opposite,
+    return SizedBox(
+      height: 600,
+      width: double.infinity,
+      child: LayoutBuilder(builder: (context, constraints) {
+        return MouseRegion(
+          onEnter: (event) => setState(() {
+            _stopScroll = true;
+          }),
+          onExit: (event) => setState(() {
+            _stopScroll = false;
+          }),
+          child: ClipRRect(
+            borderRadius: br12,
+            child: Stack(
+              clipBehavior: Clip.hardEdge,
+              alignment: Alignment.center,
+              fit: StackFit.passthrough,
+              children: [
+                GestureDetector(
+                  onTap: () => log("Tapped On Project Background!"),
+                  child: SizedBox.expand(
+                    child: Image.network(
+                      "https://images.unsplash.com/photo-1620646233562-f2a31ad24425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHN0YXJyeSUyMHNreXxlbnwwfHwwfHx8MA%3D%3D",
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-              ),
-            ),
-            24.height,
-            SizedBox(
-              height: 600,
-              width: double.infinity,
-              child: LayoutBuilder(builder: (context, constraints) {
-                return MouseRegion(
-                  onEnter: (event) => setState(() {
-                    _stopScroll = true;
-                  }),
-                  onExit: (event) => setState(() {
-                    _stopScroll = false;
-                  }),
-                  child: ClipRRect(
-                    borderRadius: br12,
-                    child: Stack(
-                      clipBehavior: Clip.hardEdge,
-                      alignment: Alignment.center,
-                      fit: StackFit.passthrough,
+                Positioned(
+                  top: -100,
+                  bottom: -100,
+                  child: SizedBox(
+                    width: constraints.maxWidth,
+                    child: AnimatedContainer(
+                      duration: Durations.long1,
+                      transform: _stopScroll
+                          ? Matrix4.identity()
+                          : Matrix4.skew(0.3, -0),
+                      child: Padding(
+                        padding: horizontal16,
+                        child: Consumer(builder: (context, ref, _) {
+                          final projectList = ref.read(myProjectsProvider);
+                          return GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 12,
+                            ),
+                            controller: _scrollController,
+                            itemBuilder: (context, index) {
+                              final item =
+                                  projectList.rotatedIndexedItem(index);
+                              if (item == null) return null;
+                              return SingleProjectWIdget(item: item);
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox.expand(
+                  child: IgnorePointer(
+                    ignoring: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        GestureDetector(
-                          onTap: () => log("Tapped On Project Background!"),
-                          child: SizedBox.expand(
-                            child: Image.network(
-                              "https://images.unsplash.com/photo-1620646233562-f2a31ad24425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHN0YXJyeSUyMHNreXxlbnwwfHwwfHx8MA%3D%3D",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: -100,
-                          bottom: -100,
-                          child: SizedBox(
-                            width: constraints.maxWidth,
-                            child: AnimatedContainer(
-                              duration: Durations.long1,
-                              transform: _stopScroll
-                                  ? Matrix4.identity()
-                                  : Matrix4.skew(0.3, -0),
-                              child: Padding(
-                                padding: horizontal16,
-                                child: Consumer(builder: (context, ref, _) {
-                                  final projectList =
-                                      ref.read(myProjectsProvider);
-                                  return GridView.builder(
-                                    // physics:
-                                    //     const NeverScrollableScrollPhysics(),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 12,
-                                      mainAxisSpacing: 12,
-                                    ),
-                                    controller: _scrollController,
-                                    itemBuilder: (context, index) {
-                                      final item =
-                                          projectList.rotatedIndexedItem(index);
-                                      if (item == null) return null;
-                                      return SingleProjectWIdget(item: item);
-                                    },
-                                  );
-                                }),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox.expand(
-                          child: IgnorePointer(
-                            ignoring: true,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                DecoratedBox(
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.white,
-                                        Colors.white70,
-                                        Colors.white60,
-                                        Colors.white54,
-                                        Colors.white38,
-                                        Colors.white30,
-                                        Colors.white24,
-                                        Colors.white12,
-                                        Colors.white10,
-                                      ],
-                                    ),
-                                  ),
-                                  child: SizedBox(
-                                    height: constraints.maxHeight * 0.1,
-                                    width: double.infinity,
-                                  ),
-                                ),
-                                const Expanded(child: SizedBox()),
-                                DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.white,
-                                        Colors.white70,
-                                        Colors.white60,
-                                        Colors.white54,
-                                        Colors.white38,
-                                        Colors.white30,
-                                        Colors.white24,
-                                        Colors.white12,
-                                        Colors.white10,
-                                      ].reversed.toList(),
-                                    ),
-                                  ),
-                                  child: SizedBox(
-                                    height: constraints.maxHeight * 0.1,
-                                    width: double.infinity,
-                                  ),
-                                ),
+                        DecoratedBox(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white,
+                                Colors.white70,
+                                Colors.white60,
+                                Colors.white54,
+                                Colors.white38,
+                                Colors.white30,
+                                Colors.white24,
+                                Colors.white12,
+                                Colors.white10,
                               ],
                             ),
+                          ),
+                          child: SizedBox(
+                            height: constraints.maxHeight * 0.1,
+                            width: double.infinity,
+                          ),
+                        ),
+                        const Expanded(child: SizedBox()),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.white,
+                                Colors.white70,
+                                Colors.white60,
+                                Colors.white54,
+                                Colors.white38,
+                                Colors.white30,
+                                Colors.white24,
+                                Colors.white12,
+                                Colors.white10,
+                              ].reversed.toList(),
+                            ),
+                          ),
+                          child: SizedBox(
+                            height: constraints.maxHeight * 0.1,
+                            width: double.infinity,
                           ),
                         ),
                       ],
                     ),
                   ),
-                );
-              }),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 }
@@ -336,7 +344,7 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                                     ),
                                   ),
                                   3.width,
-                                  Icon(
+                                  const Icon(
                                     Icons.keyboard_double_arrow_right_rounded,
                                     size: 18,
                                     color: Colors.white70,

@@ -5,6 +5,7 @@ import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
+import 'package:portfolio_mostafij/src/utilities/widgets/custom_cursor.dart';
 import 'package:rive/rive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -129,7 +130,7 @@ class HeroDetailsSection extends StatelessWidget {
               text: "Hello!\nI'm ",
               style: context.text.titleMedium,
               children: [
-                WidgetSpan(child: 60.height),
+                // WidgetSpan(child: 0.height),
                 TextSpan(
                   text: "Mostafijul Islam",
                   style: context.text.headlineMedium?.merge(
@@ -151,7 +152,7 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
                 WidgetSpan(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(top: 6.0),
                     child: Text(
                       "Software Developer",
                       style: context.text.headlineMedium!.merge(
@@ -194,7 +195,7 @@ class HeroDetailsSection extends StatelessWidget {
             ),
           ).animate().fadeIn(duration: _initialDuration).slide(),
         ),
-        18.height,
+        24.height,
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 500),
           child: Padding(
@@ -212,6 +213,7 @@ class HeroDetailsSection extends StatelessWidget {
                       ),
                     ),
                     children: [
+                      /* 
                       TextSpan(
                         text: "cross-platform mobile apps",
                         style: TextStyle(
@@ -219,18 +221,44 @@ class HeroDetailsSection extends StatelessWidget {
                           color: context.color.mainAccent,
                         ),
                       ),
-                      TextSpan(
+                       */
+                      WidgetSpan(
+                        child: CustomCursor(
+                          // deviation: Size(5, 5),
+                          // decoration: SizedBox.expand(
+                          //   child: Image.asset("assets/icons/cursor.png"),
+                          // ),
+                          decorationSize: const Size.square(48),
+                          child: Text(
+                            "cross-platform mobile apps",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: context.color.mainAccent,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const TextSpan(
                         text:
                             " using Flutter, focusing on Android and iOS. With additional experience in ",
                       ),
-                      TextSpan(
-                        text: "full-stack development",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: context.color.mainAccent,
+                      WidgetSpan(
+                        child: CustomCursor(
+                          // deviation: Size(5, 5),
+                          // decoration: SizedBox.expand(
+                          //   child: Image.asset("assets/icons/cursor.png"),
+                          // ),
+                          decorationSize: const Size.square(48),
+                          child: Text(
+                            "full-stack development",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: context.color.mainAccent,
+                            ),
+                          ),
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text:
                             " using Node.js, I bring a holistic approach to building scalable and impactful applications.",
                       ),
@@ -269,7 +297,7 @@ class HeroDetailsSection extends StatelessWidget {
                     onPressed: () {
                       launchUrl(Uri.parse("mailto:mostafijul929@gmail.com"));
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.mail_outline_rounded,
                       size: 18,
                     ),
@@ -290,7 +318,7 @@ class HeroDetailsSection extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.file_download_outlined,
                       size: 18,
                     ),

@@ -23,12 +23,10 @@ class _SectionButtonState extends State<SectionButton> {
     const duration = Durations.long1;
     return GestureDetector(
       onTap: widget.onTap,
-      child: MouseRegion(
-        onEnter: (event) => setState(() {
-          _isHovered = true;
-        }),
-        onExit: (event) => setState(() {
-          _isHovered = false;
+      child: InkWell(
+        onTap: widget.onTap,
+        onHover: (event) => setState(() {
+          _isHovered = event;
         }),
         child: Center(
           child: Padding(
