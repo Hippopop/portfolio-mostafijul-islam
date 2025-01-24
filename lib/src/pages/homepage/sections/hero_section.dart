@@ -128,12 +128,12 @@ class HeroDetailsSection extends StatelessWidget {
             softWrap: true,
             text: TextSpan(
               text: "Hello!\nI'm ",
-              style: context.text.titleMedium,
+              style: context.textTheme.titleMedium,
               children: [
                 // WidgetSpan(child: 0.height),
                 TextSpan(
                   text: "Mostafijul Islam",
-                  style: context.text.headlineMedium?.merge(
+                  style: context.textTheme.headlineMedium?.merge(
                     GoogleFonts.sourceSans3(
                       fontWeight: FontWeight.bold,
                       decorationColor: Colors.blue,
@@ -148,14 +148,14 @@ class HeroDetailsSection extends StatelessWidget {
                 ),
                 TextSpan(
                   text: "I'm a ",
-                  style: context.text.titleMedium,
+                  style: context.textTheme.titleMedium,
                 ),
                 WidgetSpan(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 6.0),
                     child: Text(
                       "Software Developer",
-                      style: context.text.headlineMedium!.merge(
+                      style: context.textTheme.headlineMedium!.merge(
                         GoogleFonts.sourceSans3(
                           height: 1,
                           fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class HeroDetailsSection extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: "I specialize in crafting seamless ",
-                    style: context.text.bodyMedium?.merge(
+                    style: context.textTheme.bodyMedium?.merge(
                       TextStyle(
                         fontWeight: FontWeight.w300,
                         color: context.color.secondaryText,
@@ -239,8 +239,18 @@ class HeroDetailsSection extends StatelessWidget {
                         ),
                       ),
                       const TextSpan(
+                        text: " using ",
+                      ),
+                      TextSpan(
+                        text: "Flutter",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: context.color.primaryAccent,
+                        ),
+                      ),
+                      const TextSpan(
                         text:
-                            " using Flutter, focusing on Android and iOS. With additional experience in ",
+                            ", focusing on Android and iOS. With additional experience in ",
                       ),
                       WidgetSpan(
                         child: CustomCursor(
@@ -259,8 +269,18 @@ class HeroDetailsSection extends StatelessWidget {
                         ),
                       ),
                       const TextSpan(
+                        text: " using ",
+                      ),
+                      TextSpan(
+                        text: "Node.js",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: context.color.primaryAccent,
+                        ),
+                      ),
+                      const TextSpan(
                         text:
-                            " using Node.js, I bring a holistic approach to building scalable and impactful applications.",
+                            ", I bring a holistic approach to building scalable and impactful applications.",
                       ),
                     ],
                   ),
@@ -274,7 +294,7 @@ class HeroDetailsSection extends StatelessWidget {
                   softWrap: true,
                   maxLines: 100,
                   overflow: TextOverflow.ellipsis,
-                  style: context.text.bodyMedium?.merge(
+                  style: context.textTheme.bodyMedium?.merge(
                     TextStyle(
                       fontWeight: FontWeight.w300,
                       color: context.color.secondaryText,

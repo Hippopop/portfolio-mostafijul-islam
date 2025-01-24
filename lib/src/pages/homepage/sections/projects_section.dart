@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
@@ -14,6 +15,7 @@ import 'package:portfolio_mostafij/src/services/theme/extensions/extensions.dart
 import 'package:portfolio_mostafij/src/utilities/extensions/list_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
+import 'package:portfolio_mostafij/src/utilities/widgets/custom_cursor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectSection extends StatelessWidget {
@@ -32,7 +34,7 @@ class ProjectSection extends StatelessWidget {
               child: Center(
                 child: Text(
                   "· My Projects ·",
-                  style: context.text.headlineMedium?.merge(
+                  style: context.textTheme.headlineMedium?.merge(
                     GoogleFonts.sofia(
                       color: context.color.opposite,
                     ),
@@ -41,8 +43,211 @@ class ProjectSection extends StatelessWidget {
               ),
             ),
             24.height,
-            // const NetflixStyleProjectsSection(),
+            Consumer(builder: (context, ref, _) {
+              final projectList = ref.read(myProjectsProvider);
+              return StaggeredGrid.count(
+                crossAxisCount: switch (context.responsiveState) {
+                  ResponsiveState.ts => 1,
+                  ResponsiveState.xs => 1,
+                  ResponsiveState.sm => 2,
+                  ResponsiveState.md => 2,
+                  ResponsiveState.lg => 3,
+                  ResponsiveState.xl => 3,
+                },
+                crossAxisSpacing: 24,
+                mainAxisSpacing: 24,
+                children: [...projectList, ...projectList]
+                    .map(
+                      (e) => StaggeredGridTile.count(
+                        crossAxisCellCount: 1,
+                        mainAxisCellCount: 1,
+                        child: SingleProjectWidget(item: e),
+                      ),
+                    )
+                    .toList(),
+              );
+              /* return GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
+                itemCount: projectList.length * 2,
+                itemBuilder: (context, index) {
+                  final item = [...projectList, ...projectList][index];
+                  return SingleProjectWidget(item: item);
+                },
+              ); */
+            }),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class SingleProjectWidget extends StatefulWidget {
+  const SingleProjectWidget({
+    super.key,
+    required this.item,
+  });
+
+  final ProjectStructure item;
+
+  @override
+  State<SingleProjectWidget> createState() => _SingleProjectWidgetState();
+}
+
+class _SingleProjectWidgetState extends State<SingleProjectWidget>
+    with SingleTickerProviderStateMixin {
+  late final _duration = Durations.short4;
+  late final _imageKey = GlobalKey();
+  late final _controller =
+      AnimationController(vsync: this, duration: _duration);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: br6,
+      clipBehavior: Clip.hardEdge,
+      child: InkWell(
+        onTap: () {
+          log("Clicked on project - ${widget.item.projectName}");
+        },
+        onHover: (value) {
+          setState(() {
+            _isHovered = value;
+          });
+          if (value) {
+            _controller.forward();
+          } else {
+            _controller.reverse();
+          }
+        },
+        child: CustomCursor(
+          decorationSize: const Size.square(42),
+          decoration: SizedBox.square(
+            dimension: 42,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border.all(color: context.color.primary),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_forward_rounded,
+                color: context.color.primary,
+              ),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                flex: 7,
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Transform.scale(
+                    scale: 1 + (_controller.value * 0.1),
+                    child: child,
+                  ),
+                  child: Image.network(
+                    widget.item.coverPic,
+                    key: _imageKey,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: ColoredBox(
+                  color: context.color.mainAccent,
+                  child: Padding(
+                    padding: horizontal24 + horizontal8 + vertical10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        10.height,
+                        Text(
+                          widget.item.projectName,
+                          maxLines: 1,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            color: context.color.theme,
+                          ),
+                        ),
+                        // 6.height,
+                        Expanded(
+                          child: AnimatedSwitcher(
+                            duration: _duration,
+                            reverseDuration: _duration,
+                            transitionBuilder: (child, animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: Transform.translate(
+                                  offset: Offset(
+                                      0.0, 0.0 - ((1 - animation.value) * 12)),
+                                  child: child,
+                                ),
+                              );
+                            },
+                            child: _isHovered
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        "Learn More",
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:
+                                            context.textTheme.bodySmall?.merge(
+                                          GoogleFonts.poppins(
+                                            color: context.color.theme
+                                                .withAlpha(2000),
+                                          ),
+                                        ),
+                                      ),
+                                      12.width,
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 18,
+                                        color:
+                                            context.color.theme.withAlpha(2000),
+                                      ),
+                                    ],
+                                  )
+                                : Text(
+                                    widget.item.shortDescription,
+                                    maxLines: 2,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: context.textTheme.bodySmall?.merge(
+                                      GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        color:
+                                            context.color.theme.withAlpha(150),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -152,7 +357,7 @@ class _NetflixStyleProjectsSectionState
                               final item =
                                   projectList.rotatedIndexedItem(index);
                               if (item == null) return null;
-                              return SingleProjectWIdget(item: item);
+                              return _SingleNetflixProjectWidget(item: item);
                             },
                           );
                         }),
@@ -226,8 +431,8 @@ class _NetflixStyleProjectsSectionState
   }
 }
 
-class SingleProjectWIdget extends StatefulWidget {
-  const SingleProjectWIdget({
+class _SingleNetflixProjectWidget extends StatefulWidget {
+  const _SingleNetflixProjectWidget({
     super.key,
     required this.item,
   });
@@ -235,10 +440,12 @@ class SingleProjectWIdget extends StatefulWidget {
   final ProjectStructure item;
 
   @override
-  State<SingleProjectWIdget> createState() => _SingleProjectWIdgetState();
+  State<_SingleNetflixProjectWidget> createState() =>
+      _SingleNetflixProjectWidgetState();
 }
 
-class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
+class _SingleNetflixProjectWidgetState
+    extends State<_SingleNetflixProjectWidget>
     with SingleTickerProviderStateMixin {
   late final _controller = AnimationController(vsync: this, duration: 400.ms);
 
@@ -288,7 +495,7 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                                 child: Text(
                                   widget.item.projectName,
                                   textAlign: TextAlign.center,
-                                  style: context.text.bodyLarge?.merge(
+                                  style: context.textTheme.bodyLarge?.merge(
                                     GoogleFonts.poppins(
                                       color: context.color.theme,
                                       decoration: TextDecoration.underline,
@@ -305,7 +512,7 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                                 child: Text(
                                   widget.item.shortDescription,
                                   textAlign: TextAlign.center,
-                                  style: context.text.bodySmall?.copyWith(
+                                  style: context.textTheme.bodySmall?.copyWith(
                                     color: Colors.white70,
                                   ),
                                 ),
@@ -339,7 +546,8 @@ class _SingleProjectWIdgetState extends State<SingleProjectWIdget>
                                 children: [
                                   Text(
                                     "Tap for more details",
-                                    style: context.text.bodySmall?.copyWith(
+                                    style:
+                                        context.textTheme.bodySmall?.copyWith(
                                       color: Colors.white70,
                                     ),
                                   ),

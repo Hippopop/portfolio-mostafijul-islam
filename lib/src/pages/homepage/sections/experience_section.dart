@@ -143,7 +143,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       child: Center(
                         child: Text(
                           "Work Experience",
-                          style: context.text.headlineMedium?.merge(
+                          style: context.textTheme.headlineMedium?.merge(
                             GoogleFonts.sofia(
                               color: context.color.opposite,
                             ),
@@ -169,8 +169,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                               .map(
                                 (workExperience) => Builder(builder: (context) {
                                   return Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 8.0),
+                                    padding: const EdgeInsets.only(bottom: 8.0),
                                     child: WorkExperienceWidget(
                                       experienceModel: workExperience,
                                       isSelected: controller
@@ -209,7 +208,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                     child: Center(
                       child: Text(
                         "· Work Experience ·",
-                        style: context.text.headlineMedium?.merge(
+                        style: context.textTheme.headlineMedium?.merge(
                           GoogleFonts.sofia(
                             color: context.color.opposite,
                           ),
@@ -349,7 +348,7 @@ class ExpandedExperienceTile extends StatelessWidget {
           children: [
             Text(
               experienceModel.company.name,
-              style: context.text.titleLarge?.merge(
+              style: context.textTheme.titleLarge?.merge(
                 GoogleFonts.sansita(
                   decorationThickness: 0.3,
                   decoration: TextDecoration.underline,
@@ -422,7 +421,7 @@ class CollapsedExperienceTile extends StatelessWidget {
                   Expanded(
                     child: Text(
                       experienceModel.company.name,
-                      style: context.text.titleLarge?.merge(
+                      style: context.textTheme.titleLarge?.merge(
                         GoogleFonts.sansita(
                           decorationThickness: 0.3,
                           decoration: TextDecoration.underline,

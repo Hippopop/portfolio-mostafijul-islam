@@ -44,6 +44,11 @@ final lightTheme = ThemeData(
       bodyMedium: GoogleFonts.poppins(
         fontSize: 16,
       ),
+      headlineSmall: GoogleFonts.sourceSans3(
+        height: 1,
+        fontWeight: FontWeight.bold,
+        color: _opposite,
+      ),
     ),
   ),
   textButtonTheme: TextButtonThemeData(

@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,7 +44,7 @@ class TopNavigationBarSection extends StatelessWidget {
                         "Mostafij",
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
-                        style: context.text.headlineSmall?.merge(
+                        style: context.textTheme.headlineSmall?.merge(
                           GoogleFonts.righteous(color: context.color.opposite),
                         ),
                       ),
@@ -139,82 +141,109 @@ class _CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    SliverAppBar;
     final bool isScrolledUnder = overlapsContent || (shrinkOffset > max - min);
     return ValueListenableBuilder(
       valueListenable: context.responsiveStateListener,
-      builder: (context, value, child) => ColoredBox(
-        color: isScrolledUnder
-            ? context.color.mainAccent.withValues(alpha: 0.1)
-            : context.color.mainBackground.withValues(alpha: 0.3),
-        child: SafeArea(
-          child: SizedBox.expand(
-            child: MaterialTwoSpecificationWrapper(
-              state: context.responsiveState,
-              child: Center(
-                child: Row(
-                  children: [
-                    12.width,
-                    SizedBox.square(
-                      dimension: 32,
-                      child: Image.asset("assets/images/logo.png"),
-                    ),
-                    8.width,
-                    FittedBox(
-                      child: Text(
-                        "Mostafij",
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: context.text.headlineSmall?.merge(
-                          GoogleFonts.righteous(color: context.color.opposite),
+      builder: (context, value, child) => Stack(
+        children: [
+          if (isScrolledUnder) ...[
+            /* 
+           ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+            child: ColoredBox(
+              color: context.color.mainAccent.withAlpha(30),
+              child: const SizedBox.expand(),
+            ),
+          ),
+           */
+            /*  ColoredBox(
+              color: context.color.mainAccent.withAlpha(30),
+              child: SizedBox(
+                height: min,
+                width: double.infinity,
+              ),
+            ),
+            Positioned(
+              bottom: min,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                child: SizedBox(
+                  height: min,
+                  width: double.infinity,
+                ),
+              ),
+            ), */
+          ],
+          SafeArea(
+            child: SizedBox.expand(
+              child: MaterialTwoSpecificationWrapper(
+                state: context.responsiveState,
+                child: Center(
+                  child: Row(
+                    children: [
+                      12.width,
+                      SizedBox.square(
+                        dimension: 32,
+                        child: Image.asset("assets/images/logo.png"),
+                      ),
+                      8.width,
+                      FittedBox(
+                        child: Text(
+                          "Mostafij",
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.headlineSmall?.merge(
+                            GoogleFonts.righteous(
+                                color: context.color.opposite),
+                          ),
                         ),
                       ),
-                    ),
-                    if (value! > ResponsiveState.sm)
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: sections
-                              .map(
-                                (e) => Padding(
-                                  padding: horizontal10,
-                                  child: SectionButton(
-                                    text: e.label,
-                                    onTap: () {
-                                      final context = e.key.currentContext;
-                                      if (context != null) {
-                                        Scrollable.ensureVisible(
-                                          e.key.currentContext!,
-                                        );
-                                      } else {
-                                        print(
-                                            "No context found for ${e.label}!");
-                                      }
-                                    },
+                      if (value! > ResponsiveState.sm)
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: sections
+                                .map(
+                                  (e) => Padding(
+                                    padding: horizontal10,
+                                    child: SectionButton(
+                                      text: e.label,
+                                      onTap: () {
+                                        final context = e.key.currentContext;
+                                        if (context != null) {
+                                          Scrollable.ensureVisible(
+                                            e.key.currentContext!,
+                                          );
+                                        } else {
+                                          print(
+                                              "No context found for ${e.label}!");
+                                        }
+                                      },
+                                    ),
                                   ),
-                                ),
-                              )
-                              .toList(),
+                                )
+                                .toList(),
+                          ),
+                        )
+                      else
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: DrawerButtonIcon(),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    else
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: DrawerButtonIcon(),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

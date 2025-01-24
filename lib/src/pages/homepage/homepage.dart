@@ -101,7 +101,9 @@ class _BodySectionState extends State<BodySection> {
           // ),
           CustomSliverAppBar(sections: _allItems),
           32.height,
-          const HeroSection(),
+          HeroSection(
+            key: _allItems[0].key,
+          ),
           32.height,
           64.height,
           IgnorePointer(
@@ -113,16 +115,21 @@ class _BodySectionState extends State<BodySection> {
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
-            child: const ExperienceSection(),
+            child: ExperienceSection(
+              key: _allItems[2].key,
+            ),
           ),
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
             child: ProjectSection(
-              key: _allItems[2].key,
+              key: _allItems[3].key,
             ),
           ),
-          200.height,
+          SizedBox(
+            key: _allItems[4].key,
+            child: 200.height,
+          ),
         ]
             .indexed
             .map((e) => e.$1 == 0 ? e.$2 : SliverToBoxAdapter(child: e.$2))
