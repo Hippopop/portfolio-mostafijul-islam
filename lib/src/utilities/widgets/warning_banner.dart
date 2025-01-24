@@ -132,7 +132,7 @@ class _UnderConstructionWarningWrapperState
                   child: RichText(
                     text: TextSpan(
                       text: firstText.text,
-                      style: context.text.bodyMedium,
+                      style: context.textTheme.bodyMedium,
                       children: otherParts.indexed
                           .map(
                             (part) => switch (part.$2) {

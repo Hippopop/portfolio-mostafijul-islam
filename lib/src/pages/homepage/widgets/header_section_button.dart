@@ -20,7 +20,7 @@ class _SectionButtonState extends State<SectionButton> {
   bool _isHovered = false;
   @override
   Widget build(BuildContext context) {
-    const duration = Durations.long1;
+    const duration = Durations.short4;
     return GestureDetector(
       onTap: widget.onTap,
       child: InkWell(
@@ -38,7 +38,7 @@ class _SectionButtonState extends State<SectionButton> {
                 children: [
                   AnimatedDefaultTextStyle(
                     duration: duration,
-                    style: context.text.bodyMedium!.copyWith(
+                    style: context.textTheme.bodyMedium!.copyWith(
                       color: _isHovered
                           ? context.color.primary
                           : context.color.mainText,

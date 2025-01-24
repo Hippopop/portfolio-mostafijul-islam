@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 
@@ -7,6 +6,7 @@ class CustomCursor extends StatefulWidget {
     super.key,
     this.deviation,
     this.decoration,
+    this.defaultColor,
     this.decorationSize,
     required this.child,
   });
@@ -14,6 +14,7 @@ class CustomCursor extends StatefulWidget {
   final Widget child;
   final Size? deviation;
   final Widget? decoration;
+  final Color? defaultColor;
   final Size? decorationSize;
 
   @override
@@ -32,7 +33,7 @@ class _CustomCursorState extends State<CustomCursor> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: context.color.primaryAccent,
+              color: widget.defaultColor ?? context.color.primaryAccent,
             ),
           ),
           child: const SizedBox.expand(),
@@ -59,13 +60,11 @@ class _CustomCursorState extends State<CustomCursor> {
         clipBehavior: Clip.none,
         children: [
           widget.child,
-          Positioned(
-            left: (offset?.dx ?? 0) -
-                (widget.deviation?.width ?? size.height / 2),
-            top: (offset?.dy ?? 0) -
-                (widget.deviation?.height ?? size.width / 2),
-            child: Align(
-              alignment: const FractionalOffset(0, 0),
+          if (offset != null)
+            AnimatedPositioned(
+              duration: Durations.short3,
+              left: (offset!.dx) - (widget.deviation?.width ?? size.height / 2),
+              top: (offset!.dy) - (widget.deviation?.height ?? size.width / 2),
               child: SizedBox(
                 width: size.width,
                 height: size.height,
@@ -83,7 +82,6 @@ class _CustomCursorState extends State<CustomCursor> {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
