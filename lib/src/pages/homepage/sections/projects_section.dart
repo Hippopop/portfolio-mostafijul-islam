@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_mostafij/src/constants/design/border_radius.dart';
 import 'package:portfolio_mostafij/src/constants/design/paddings.dart';
 import 'package:portfolio_mostafij/src/data/models/project_structure/project_structure.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/controllers/my_projects_provider.dart';
+import 'package:portfolio_mostafij/src/services/router/routes.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/colors_theme.dart';
 import 'package:portfolio_mostafij/src/services/theme/extensions/extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/list_extensions.dart';
@@ -57,11 +59,12 @@ class ProjectSection extends StatelessWidget {
                 crossAxisSpacing: 24,
                 mainAxisSpacing: 24,
                 children: [...projectList, ...projectList]
+                    .indexed
                     .map(
                       (e) => StaggeredGridTile.count(
-                        crossAxisCellCount: 1,
+                        crossAxisCellCount: e.$1 == 4 ? 2 : 1,
                         mainAxisCellCount: 1,
-                        child: SingleProjectWidget(item: e),
+                        child: SingleProjectWidget(item: e.$2),
                       ),
                     )
                     .toList(),
@@ -122,6 +125,7 @@ class _SingleProjectWidgetState extends State<SingleProjectWidget>
       child: InkWell(
         onTap: () {
           log("Clicked on project - ${widget.item.projectName}");
+          context.push("/project/${widget.item.projectName}");
         },
         onHover: (value) {
           setState(() {
@@ -226,16 +230,19 @@ class _SingleProjectWidgetState extends State<SingleProjectWidget>
                                       ),
                                     ],
                                   )
-                                : Text(
-                                    widget.item.shortDescription,
-                                    maxLines: 2,
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: context.textTheme.bodySmall?.merge(
-                                      GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color:
-                                            context.color.theme.withAlpha(150),
+                                : Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.item.shortDescription,
+                                      maxLines: 2,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: context.textTheme.bodySmall?.merge(
+                                        GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: context.color.theme
+                                              .withAlpha(150),
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -16,7 +16,8 @@ const Color _extraColor = Color(0xFF4A4A4A);
 
 // Accent Colors
 const Color _secondaryAccent = Color(0xFFF57C00);
-const Color _mainAccent = Color(0xFFD81B60);
+// const Color _mainAccent = Color(0xFFD81B60);
+const Color _mainAccent = Color(0xFF174EA6);
 const Color _secondarySupport = Color(0xFFFF5252);
 
 const _theme = Colors.white;
@@ -30,7 +31,7 @@ final lightTheme = ThemeData(
   primaryColor: _primaryColor,
   scaffoldBackgroundColor: _backgroundColor,
   actionIconTheme: ActionIconThemeData(
-    drawerButtonIconBuilder: (context) => Icon(
+    drawerButtonIconBuilder: (context) => const Icon(
       Icons.menu,
       color: _opposite,
     ),

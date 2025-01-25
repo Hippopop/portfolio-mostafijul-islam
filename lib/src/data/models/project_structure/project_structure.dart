@@ -31,6 +31,8 @@ enum ProjectPublishSpace {
 
 typedef ReferenceLink = ({ProjectPublishSpace store, String link});
 typedef Screenshot = ({String title, String link});
+// TODO: (@mostafij) Add an [id] section for each project!
+// TODO: (@mostafij) Add an [Technologies] section for each project!
 
 @freezed
 class ProjectStructure with _$ProjectStructure {
