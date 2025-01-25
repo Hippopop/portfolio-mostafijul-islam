@@ -323,7 +323,10 @@ class HeroDetailsSection extends StatelessWidget {
                     ),
                     label: Padding(
                       padding: vertical12 + horizontal3,
-                      child: const Text("Contact"),
+                      child: const Text(
+                        "Contact",
+                        style: TextStyle(wordSpacing: 0),
+                      ),
                     ),
                   ),
                 ),
@@ -344,7 +347,10 @@ class HeroDetailsSection extends StatelessWidget {
                     ),
                     label: Padding(
                       padding: vertical12 + horizontal3,
-                      child: const Text("Resume"),
+                      child: const Text(
+                        "Resume",
+                        style: TextStyle(wordSpacing: 0),
+                      ),
                     ),
                   ),
                 ),

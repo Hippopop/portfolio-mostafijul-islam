@@ -49,6 +49,7 @@ class _SectionButtonState extends State<SectionButton> {
                         child: Text(
                           widget.text,
                           maxLines: 1,
+                          style: const TextStyle(wordSpacing: 0),
                         ),
                       ),
                     ),

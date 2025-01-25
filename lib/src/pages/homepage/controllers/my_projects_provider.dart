@@ -20,7 +20,8 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
           store: ProjectPublishSpace.web,
         ),
       ],
-      projectDetails: "",
+      projectDetails:
+          "Cillum consectetur ad sunt dolor nulla aliqua. Irure incididunt pariatur aute velit et proident. Fugiat voluptate tempor consectetur ipsum nostrud anim Lorem sit labore voluptate tempor nulla.",
       screenshots: [],
     ),
     ProjectStructure(
@@ -40,7 +41,8 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
           store: ProjectPublishSpace.web,
         ),
       ],
-      projectDetails: "",
+      projectDetails:
+          "Amet fugiat magna nulla excepteur qui officia laborum labore id et amet do non. Adipisicing commodo veniam non esse in est occaecat. Lorem qui minim non sint velit laborum ad velit. Duis ipsum aliqua dolore magna excepteur laboris non cupidatat cupidatat cupidatat. Veniam commodo exercitation non commodo mollit elit deserunt enim ut id est dolor officia. Officia amet irure non nostrud sunt et veniam. Non aute consequat Lorem pariatur deserunt amet proident voluptate quis.",
       screenshots: [],
     ),
     ProjectStructure(
@@ -59,7 +61,8 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
           store: ProjectPublishSpace.iOs,
         ),
       ],
-      projectDetails: "",
+      projectDetails:
+          "Qui non eu dolor ut officia mollit consectetur est. Proident est aute tempor magna proident cillum nulla qui. Sit nisi in nisi voluptate cillum velit. Consequat incididunt ullamco consectetur nulla officia ea pariatur anim aliquip sint ullamco sit laborum eiusmod. Amet voluptate eu laboris consequat in nulla ad quis deserunt qui voluptate. Consequat sint aliqua velit reprehenderit magna elit exercitation proident aliqua proident ex eu.",
       projectName: "Marhaba Customer",
       screenshots: [],
     ),
@@ -79,7 +82,8 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
           store: ProjectPublishSpace.iOs,
         ),
       ],
-      projectDetails: "",
+      projectDetails:
+          "Pariatur cillum deserunt qui ipsum. Incididunt officia duis esse et sint ut. Aliquip irure cupidatat adipisicing nostrud velit anim velit do non minim nostrud ipsum.",
       projectName: "Emasa-Tap",
       screenshots: [],
     ),
@@ -99,7 +103,8 @@ final myProjectsProvider = Provider<List<ProjectStructure>>((ref) {
           store: ProjectPublishSpace.web,
         ),
       ],
-      projectDetails: "",
+      projectDetails:
+          "Exercitation velit quis irure reprehenderit non cupidatat. Fugiat velit commodo duis officia amet do nostrud consectetur et officia. Ad eiusmod velit ea quis id minim culpa.",
       projectName: "SoCook",
       screenshots: [],
     ),
