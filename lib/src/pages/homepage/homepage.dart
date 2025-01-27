@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:portfolio_mostafij/src/pages/homepage/sections/about_me_section.dart';
 import 'package:portfolio_mostafij/src/pages/homepage/sections/projects_section.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
@@ -101,35 +102,26 @@ class _BodySectionState extends State<BodySection> {
           // ),
           CustomSliverAppBar(sections: _allItems),
           32.height,
-          HeroSection(
-            key: _allItems[0].key,
-          ),
+          HeroSection(key: _allItems[0].key),
           32.height,
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
-            child: SkillsSection(
-              key: _allItems[1].key,
-            ),
+            child: SkillsSection(key: _allItems[1].key),
           ),
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
-            child: ExperienceSection(
-              key: _allItems[2].key,
-            ),
+            child: ExperienceSection(key: _allItems[2].key),
           ),
           64.height,
           IgnorePointer(
             ignoring: !_canPoint,
-            child: ProjectSection(
-              key: _allItems[3].key,
-            ),
+            child: ProjectSection(key: _allItems[3].key),
           ),
-          SizedBox(
-            key: _allItems[4].key,
-            child: 200.height,
-          ),
+          64.height,
+          AboutMeSection(key: _allItems[4].key),
+          64.height,
         ]
             .indexed
             .map((e) => e.$1 == 0 ? e.$2 : SliverToBoxAdapter(child: e.$2))
