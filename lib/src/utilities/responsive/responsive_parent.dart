@@ -63,7 +63,7 @@ enum ResponsiveState implements Comparable<ResponsiveState> {
     max: double.infinity,
     bodyMargin: null,
     layoutColumn: 8,
-    bodyWidth: 1080,
+    bodyWidth: 1250,
   );
 
   const ResponsiveState({
@@ -151,7 +151,6 @@ class _ResponsiveParentWrapperState extends State<ResponsiveParentWrapper> {
     child = widget.builder(context, currentState.value!);
     super.didUpdateWidget(ResponsiveParentWrapper(builder: widget.builder));
   }
-
 
   @override
   Widget build(BuildContext context) {

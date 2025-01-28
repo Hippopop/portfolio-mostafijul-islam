@@ -147,6 +147,21 @@ class _CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
       builder: (context, value, child) => Stack(
         children: [
           if (isScrolledUnder) ...[
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white30,
+                    Colors.white70,
+                    Colors.white30,
+                    Colors.white70,
+                    Colors.white30,
+                    Colors.white70,
+                  ],
+                ),
+              ),
+              child: SizedBox.expand(),
+            ),
             /* 
            ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),

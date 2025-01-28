@@ -10,7 +10,6 @@ import 'package:portfolio_mostafij/src/pages/homepage/controllers/my_projects_pr
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
-import 'package:portfolio_mostafij/src/utilities/widgets/svg_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SingleProjectWindow extends StatelessWidget {

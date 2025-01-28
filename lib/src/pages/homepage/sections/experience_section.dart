@@ -18,7 +18,6 @@ import 'package:portfolio_mostafij/src/pages/homepage/controllers/flag_state_not
 import 'package:portfolio_mostafij/src/services/theme/app_theme.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/date_time_extensions.dart';
 import 'package:portfolio_mostafij/src/utilities/extensions/size_utilities.dart';
-import 'package:portfolio_mostafij/src/utilities/helpers/scroll/pause_whilst_scrolling.dart';
 import 'package:portfolio_mostafij/src/utilities/responsive/responsive_parent.dart';
 
 final _initialDuration = 800.ms;
@@ -225,50 +224,53 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                             .fadeIn(duration: _initialDuration),
                         24.width,
                         Expanded(
-                          child: Consumer(builder: (context, ref, child) {
-                            final controller = ref.watch(workExpProvider);
-                            return Column(
-                              children: [
-                                ...controller.experienceList
-                                    .map(
-                                      (workExperience) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: WorkExperienceWidget(
-                                          experienceModel: workExperience,
-                                          isSelected: controller
-                                                  .selectedWorkExperienceIndex ==
-                                              workExperience.index,
-                                          onSelect: (data) {
-                                            ref
-                                                .read(workExpProvider.notifier)
-                                                .onExperienceSelect(data);
-                                          },
-                                          onHover: (state, data) {
-                                            ref
-                                                .read(workExpProvider.notifier)
-                                                .onExperienceSelect(data);
-                                            final provider = ref.read(
-                                                flagStateProvider.notifier);
+                          child: Consumer(
+                            builder: (context, ref, child) {
+                              final controller = ref.watch(workExpProvider);
+                              return Column(
+                                children: [
+                                  ...controller.experienceList
+                                      .map(
+                                        (workExperience) => Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 8.0),
+                                          child: WorkExperienceWidget(
+                                            experienceModel: workExperience,
+                                            isSelected: controller
+                                                    .selectedWorkExperienceIndex ==
+                                                workExperience.index,
+                                            onSelect: (data) {
+                                              ref
+                                                  .read(
+                                                      workExpProvider.notifier)
+                                                  .onExperienceSelect(data);
+                                            },
+                                            onHover: (state, data) {
+                                              ref
+                                                  .read(
+                                                      workExpProvider.notifier)
+                                                  .onExperienceSelect(data);
+                                              final provider = ref.read(
+                                                  flagStateProvider.notifier);
 
-                                            if (state) {
-                                              provider
-                                                  .changeFlagIndex(data.index);
-                                              provider.changeVerticalWind(
-                                                  data.verticalIntensity);
-                                              provider.changeHorizontalWind(
-                                                  data.horizontalIntensity);
-                                            }
-                                          },
-                                        )
-                                            .animate()
-                                            .slideY(duration: _initialDuration),
-                                      ),
-                                    )
-                                    .toList(),
-                              ],
-                            );
-                          }),
+                                              if (state) {
+                                                provider.changeFlagIndex(
+                                                    data.index);
+                                                provider.changeVerticalWind(
+                                                    data.verticalIntensity);
+                                                provider.changeHorizontalWind(
+                                                    data.horizontalIntensity);
+                                              }
+                                            },
+                                          ).animate().slideY(
+                                              duration: _initialDuration),
+                                        ),
+                                      )
+                                      .toList(),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
