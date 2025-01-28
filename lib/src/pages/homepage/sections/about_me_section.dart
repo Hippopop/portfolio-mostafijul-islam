@@ -34,7 +34,8 @@ class AboutMeSection extends StatelessWidget {
               ),
             ),
             24.height,
-            Text("I'm not that good at introducting myself, but let me try."),
+            const Text(
+                "I'm not that good at introducting myself, but let me try."),
             48.height,
             Row(
               children: [
@@ -84,8 +85,9 @@ class _ImageWidget extends StatelessWidget {
                 child: FittedBox(
                   child: CircleAvatar(
                     radius: radius,
-                    foregroundImage:
-                        const AssetImage("assets/images/profile.jpeg"),
+                    foregroundColor: Colors.green,
+                    // foregroundImage:
+                    //     const AssetImage("assets/images/profile.jpeg"),
                   ),
                 ),
               ),
