@@ -147,47 +147,32 @@ class _CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
       builder: (context, value, child) => Stack(
         children: [
           if (isScrolledUnder) ...[
-            DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.white30,
-                    Colors.white70,
-                    Colors.white30,
-                    Colors.white70,
-                    Colors.white30,
-                    Colors.white70,
-                  ],
-                ),
-              ),
-              child: SizedBox.expand(),
-            ),
-            /* 
-           ImageFiltered(
-            imageFilter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-            child: ColoredBox(
-              color: context.color.mainAccent.withAlpha(30),
-              child: const SizedBox.expand(),
-            ),
-          ),
-           */
-            /*  ColoredBox(
-              color: context.color.mainAccent.withAlpha(30),
-              child: SizedBox(
-                height: min,
-                width: double.infinity,
-              ),
-            ),
-            Positioned(
-              bottom: min,
+            ClipRRect(
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                child: SizedBox(
-                  height: min,
-                  width: double.infinity,
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: const DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 1,
+                        color: Colors.black12,
+                      ),
+                    ),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white12,
+                        Colors.white38,
+                        Colors.white12,
+                        Colors.white38,
+                        Colors.white12,
+                        Colors.white38,
+                      ],
+                    ),
+                  ),
+                  child: SizedBox.expand(),
                 ),
               ),
-            ), */
+            ),
           ],
           SafeArea(
             child: SizedBox.expand(
