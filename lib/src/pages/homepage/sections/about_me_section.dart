@@ -35,9 +35,9 @@ class AboutMeSection extends StatelessWidget {
             ),
             24.height,
             const Text(
-                "I'm not that good at introducting myself, but let me try."),
+                "I'm not that good at introducing myself, but let me try."),
             48.height,
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Column(
@@ -59,16 +59,14 @@ class AboutMeSection extends StatelessWidget {
 }
 
 class _ImageWidget extends StatelessWidget {
-  const _ImageWidget({
-    super.key,
-  });
+  const _ImageWidget();
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final diameter = (constraints.maxWidth - 80);
-      final calloutSize = 150.0;
-      final margin = 24.0;
+      const calloutSize = 150.0;
+      const margin = 24.0;
       final radius = diameter / 2;
       return SizedBox.square(
         dimension: diameter,

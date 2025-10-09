@@ -440,7 +440,6 @@ class _NetflixStyleProjectsSectionState
 
 class _SingleNetflixProjectWidget extends StatefulWidget {
   const _SingleNetflixProjectWidget({
-    super.key,
     required this.item,
   });
 
@@ -530,7 +529,7 @@ class _SingleNetflixProjectWidgetState
                                   for (var link in widget.item.links)
                                     Theme(
                                       data: context.theme.copyWith(
-                                        useMaterial3: true,
+                                        
                                       ),
                                       child: IconButton(
                                         hoverColor: Colors.white24,
