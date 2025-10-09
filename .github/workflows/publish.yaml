@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           targetBranch: release
+          # webRenderer: canvaskit # Flag has been removed!
           baseHref: /portfolio-mostafijul-islam/
